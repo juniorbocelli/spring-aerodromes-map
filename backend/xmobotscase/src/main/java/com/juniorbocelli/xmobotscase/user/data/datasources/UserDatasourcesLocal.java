@@ -1,8 +1,8 @@
-package com.juniorbocelli.xmobotscase.data.datasources.user;
+package com.juniorbocelli.xmobotscase.user.data.datasources;
 
 import java.util.List;
 
-import com.juniorbocelli.xmobotscase.data.models.UserModel;
+import com.juniorbocelli.xmobotscase.user.data.models.UserModel;
 
 public interface UserDatasourcesLocal {
     public void createUser(UserModel userModel);

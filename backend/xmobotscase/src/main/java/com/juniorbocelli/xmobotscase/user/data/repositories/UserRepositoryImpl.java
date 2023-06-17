@@ -1,11 +1,11 @@
-package com.juniorbocelli.xmobotscase.data.repositories;
+package com.juniorbocelli.xmobotscase.user.data.repositories;
 
 import java.util.List;
 
-import com.juniorbocelli.xmobotscase.data.datasources.user.UserDatasourcesLocal;
-import com.juniorbocelli.xmobotscase.data.models.UserModel;
-import com.juniorbocelli.xmobotscase.domain.entities.User;
-import com.juniorbocelli.xmobotscase.domain.repositories.UserRepository;
+import com.juniorbocelli.xmobotscase.user.data.datasources.UserDatasourcesLocal;
+import com.juniorbocelli.xmobotscase.user.data.models.UserModel;
+import com.juniorbocelli.xmobotscase.user.domain.entities.User;
+import com.juniorbocelli.xmobotscase.user.domain.repositories.UserRepository;
 
 public class UserRepositoryImpl implements UserRepository {
     final UserDatasourcesLocal userDatasourcesLocal;

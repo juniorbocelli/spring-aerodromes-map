@@ -1,8 +1,8 @@
-package com.juniorbocelli.xmobotscase.domain.repositories;
+package com.juniorbocelli.xmobotscase.user.domain.repositories;
 
 import java.util.List;
 
-import com.juniorbocelli.xmobotscase.domain.entities.User;
+import com.juniorbocelli.xmobotscase.user.domain.entities.User;
 
 public interface UserRepository {
     public void createUser(User user);

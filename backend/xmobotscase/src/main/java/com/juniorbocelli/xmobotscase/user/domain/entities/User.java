@@ -1,8 +1,9 @@
-package com.juniorbocelli.xmobotscase.domain.entities;
+package com.juniorbocelli.xmobotscase.user.domain.entities;
 
 public class User {
     private Long id;
     private String name;
+    private String email;
     private String password;
     private String token;
 
@@ -16,6 +17,14 @@ public class User {
 
     public String getName() {
         return name;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public void setName(String name) {

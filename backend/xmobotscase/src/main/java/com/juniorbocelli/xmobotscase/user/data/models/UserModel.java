@@ -1,9 +1,9 @@
-package com.juniorbocelli.xmobotscase.data.models;
+package com.juniorbocelli.xmobotscase.user.data.models;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
-import com.juniorbocelli.xmobotscase.domain.entities.User;
+import com.juniorbocelli.xmobotscase.user.domain.entities.User;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -18,6 +18,7 @@ public class UserModel {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
+    private String email;
     private String password;
     private String token;
 
@@ -37,9 +38,10 @@ public class UserModel {
         User user = new User();
         user.setId(userModel.getId());
         user.setName(userModel.getName());
+        user.setEmail(user.getEmail());
         user.setPassword(user.getPassword());
         user.setToken(userModel.getToken());
-        
+
         return user;
     }
 
@@ -47,6 +49,7 @@ public class UserModel {
         UserModel userModel = new UserModel();
         userModel.setId(user.getId());
         userModel.setName(user.getName());
+        userModel.setEmail(user.getEmail());
         userModel.setPassword(user.getPassword());
         userModel.setToken(user.getToken());
 
@@ -81,6 +84,14 @@ public class UserModel {
         this.name = name;
     }
 
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
     public String getPassword() {
         return password;
     }
@@ -96,5 +107,4 @@ public class UserModel {
     public void setToken(String token) {
         this.token = token;
     }
-
 }

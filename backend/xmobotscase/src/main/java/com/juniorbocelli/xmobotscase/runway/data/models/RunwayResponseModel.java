@@ -1,14 +1,14 @@
-package com.juniorbocelli.xmobotscase.user.data.models;
+package com.juniorbocelli.xmobotscase.runway.data.models;
 
-public class UserResponseModel {
+public class RunwayResponseModel {
     private int code;
     private String message;
 
-    public UserResponseModel() {
+    public RunwayResponseModel() {
 
     }
 
-    public UserResponseModel(int code, String message) {
+    public RunwayResponseModel(int code, String message) {
         super();
         this.code = code;
         this.message = message;
@@ -23,10 +23,10 @@ public class UserResponseModel {
     }
 
     public String getMessage() {
-		return message;
-	}
+        return message;
+    }
 
-	public void setMessage(String message) {
-		this.message = message;
-	}
+    public void setMessage(String message) {
+        this.message = message;
+    }
 }

@@ -5,9 +5,9 @@ import java.util.stream.Collectors;
 
 import com.juniorbocelli.xmobotscase.aerodrome.domain.entities.Aerodrome;
 import com.juniorbocelli.xmobotscase.runway.domain.entities.Runway;
+import com.juniorbocelli.xmobotscase.runway.data.models.RunwayModel;
 
 import jakarta.persistence.Entity;
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -27,12 +27,13 @@ public class AerodromeModel {
 
     @OneToMany
     @JoinColumn(name = "runway_id")
-    private List<Runway> runways;
+    private List<RunwayModel> runways;
 
     private String positionX;
     private String positionY;
 
-    public AerodromeModel(Long id, String name, String city, String description, List<Runway> runways, String positionX,
+    public AerodromeModel(Long id, String name, String city, String description, List<RunwayModel> runways,
+            String positionX,
             String positionY) {
         this.id = id;
         this.name = name;
@@ -53,7 +54,15 @@ public class AerodromeModel {
         aerodrome.setName(aerodromeModel.getName());
         aerodrome.setCity(aerodromeModel.getCity());
         aerodrome.setDescription(aerodromeModel.getDescription());
-        aerodrome.setRunways(aerodromeModel.getRunways());
+        aerodrome.setRunways(aerodromeModel.getRunways().stream().map(temp -> {
+            Runway runway = new Runway();
+            runway.setId(temp.getId());
+            runway.setDesignation(temp.getDesignation());
+            runway.setWidth(temp.getWidth());
+            runway.setLength(temp.getLength());
+
+            return runway;
+        }).collect(Collectors.toList()));
         aerodrome.setPositionX(aerodromeModel.getPositionX());
         aerodrome.setPositionY(aerodromeModel.getPositionY());
 
@@ -66,7 +75,15 @@ public class AerodromeModel {
         aerodromeModel.setName(aerodrome.getName());
         aerodromeModel.setCity(aerodrome.getCity());
         aerodromeModel.setDescription(aerodrome.getDescription());
-        aerodromeModel.setRunways(aerodrome.getRunways());
+        aerodromeModel.setRunways(aerodrome.getRunways().stream().map(temp -> {
+            RunwayModel runwayModel = new RunwayModel();
+            runwayModel.setId(temp.getId());
+            runwayModel.setDesignation(temp.getDesignation());
+            runwayModel.setLength(temp.getLength());
+            runwayModel.setWidth(temp.getWidth());
+
+            return runwayModel;
+        }).collect(Collectors.toList()));
         aerodromeModel.setPositionX(aerodrome.getPositionX());
         aerodromeModel.setPositionY(aerodrome.getPositionY());
 
@@ -80,7 +97,15 @@ public class AerodromeModel {
             objAerodrome.setName(temp.getName());
             objAerodrome.setCity(temp.getCity());
             objAerodrome.setDescription(temp.getDescription());
-            objAerodrome.setRunways(temp.getRunways());
+            objAerodrome.setRunways(temp.getRunways().stream().map(obj -> {
+                Runway runway = new Runway();
+                runway.setId(obj.getId());
+                runway.setDesignation(obj.getDesignation());
+                runway.setLength(obj.getLength());
+                runway.setWidth(obj.getWidth());
+
+                return runway;
+            }).collect(Collectors.toList()));
             objAerodrome.setPositionX(temp.getPositionX());
             objAerodrome.setPositionY(temp.getPositionY());
 
@@ -120,11 +145,11 @@ public class AerodromeModel {
         this.description = description;
     }
 
-    public List<Runway> getRunways() {
+    public List<RunwayModel> getRunways() {
         return runways;
     }
 
-    public void setRunways(List<Runway> runways) {
+    public void setRunways(List<RunwayModel> runways) {
         this.runways = runways;
     }
 

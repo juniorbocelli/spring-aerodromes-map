@@ -22,10 +22,11 @@ public class UserModel {
     private String password;
     private String token;
 
-    public UserModel(Long id, String name, String password, String token) {
+    public UserModel(Long id, String name, String email, String password, String token) {
         super();
         this.id = id;
         this.name = name;
+        this.email = email;
         this.password = password;
         this.token = token;
     }
@@ -38,8 +39,8 @@ public class UserModel {
         User user = new User();
         user.setId(userModel.getId());
         user.setName(userModel.getName());
-        user.setEmail(user.getEmail());
-        user.setPassword(user.getPassword());
+        user.setEmail(userModel.getEmail());
+        user.setPassword(userModel.getPassword());
         user.setToken(userModel.getToken());
 
         return user;
@@ -61,6 +62,7 @@ public class UserModel {
             User objUser = new User();
             objUser.setId(temp.getId());
             objUser.setName(temp.getName());
+            objUser.setEmail(temp.getEmail());
             objUser.setPassword(temp.getPassword());
             objUser.setToken(temp.getToken());
 

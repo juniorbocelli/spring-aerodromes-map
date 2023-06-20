@@ -1,32 +1,113 @@
 package com.juniorbocelli.xmobotscase.aerodrome.data.models;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
+import com.juniorbocelli.xmobotscase.aerodrome.domain.entities.Aerodrome;
+import com.juniorbocelli.xmobotscase.runway.domain.entities.Runway;
+import com.juniorbocelli.xmobotscase.user.data.models.UserResponseModel;
+
 public class AerodromeResponseModel {
-    private int code;
-    private String message;
+    private Long id;
+    private String name;
+    private String city;
+    private String description;
+
+    private List<Runway> runways;
+
+    private String positionX;
+    private String positionY;
 
     public AerodromeResponseModel() {
 
     }
 
-    public AerodromeResponseModel(int code, String message) {
-        super();
-        this.code = code;
-        this.message = message;
+    public AerodromeResponseModel(Long id, String name, String city, String description, List<Runway> runways,
+            String positionX, String positionY) {
+        this.id = id;
+        this.name = name;
+        this.city = city;
+        this.description = description;
+        this.runways = runways;
+        this.positionX = positionX;
+        this.positionY = positionY;
     }
 
-    public int getCode() {
-        return code;
+    public static AerodromeResponseModel toAerodromeResponseModel(Aerodrome aerodrome) {
+        AerodromeResponseModel aerodromeResponseModel = new AerodromeResponseModel();
+        aerodromeResponseModel.setId(aerodrome.getId());
+        aerodromeResponseModel.setName(aerodrome.getName());
+        aerodromeResponseModel.setCity(aerodrome.getCity());
+        aerodromeResponseModel.setDescription(aerodrome.getDescription());
+        aerodromeResponseModel.setRunways(aerodrome.getRunways());
+        aerodromeResponseModel.setPositionX(aerodrome.getPositionX());
+        aerodromeResponseModel.setPositionY(aerodrome.getPositionY());
+
+        return aerodromeResponseModel;
     }
 
-    public void setCode(int code) {
-        this.code = code;
+    public static List<AerodromeResponseModel> toAerodromeResponseModelList(List<Aerodrome> aerodromes) {
+        return aerodromes.stream().map(temp -> {
+            AerodromeResponseModel aerodromeResponseModel = AerodromeResponseModel.toAerodromeResponseModel(temp);
+
+            return aerodromeResponseModel;
+        }).collect(Collectors.toList());
+    };
+
+    public Long getId() {
+        return id;
     }
 
-    public String getMessage() {
-        return message;
+    public void setId(Long id) {
+        this.id = id;
     }
 
-    public void setMessage(String message) {
-        this.message = message;
+    public String getName() {
+        return name;
     }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public List<Runway> getRunways() {
+        return runways;
+    }
+
+    public void setRunways(List<Runway> runways) {
+        this.runways = runways;
+    }
+
+    public String getPositionX() {
+        return positionX;
+    }
+
+    public void setPositionX(String positionX) {
+        this.positionX = positionX;
+    }
+
+    public String getPositionY() {
+        return positionY;
+    }
+
+    public void setPositionY(String positionY) {
+        this.positionY = positionY;
+    }
+
 }

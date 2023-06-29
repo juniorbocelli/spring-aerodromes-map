@@ -1,5 +1,6 @@
 package com.juniorbocelli.xmobotscase.aerodrome.data.models;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -7,11 +8,12 @@ import com.juniorbocelli.xmobotscase.aerodrome.domain.entities.Aerodrome;
 import com.juniorbocelli.xmobotscase.runway.domain.entities.Runway;
 import com.juniorbocelli.xmobotscase.runway.data.models.RunwayModel;
 
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
@@ -21,15 +23,19 @@ public class AerodromeModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Column(name = "name", nullable = false, length = 100)
     private String name;
+    @Column(name = "city", nullable = false, length = 100)
     private String city;
+    @Column(name = "description", nullable = false, length = 500)
     private String description;
 
-    @OneToMany
-    @JoinColumn(name = "runway_id")
-    private List<RunwayModel> runways;
+    @OneToMany(mappedBy = "aerodrome", cascade = CascadeType.ALL)
+    private List<RunwayModel> runways = new ArrayList<>();
 
+    @Column(name = "position_x", nullable = false, length = 10)
     private String positionX;
+    @Column(name = "position_y", nullable = false, length = 10)
     private String positionY;
 
     public AerodromeModel(Long id, String name, String city, String description, List<RunwayModel> runways,

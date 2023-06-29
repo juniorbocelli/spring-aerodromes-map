@@ -3,12 +3,16 @@ package com.juniorbocelli.xmobotscase.runway.data.models;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import com.juniorbocelli.xmobotscase.aerodrome.domain.entities.Aerodrome;
 import com.juniorbocelli.xmobotscase.runway.domain.entities.Runway;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity
@@ -17,9 +21,15 @@ public class RunwayModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Column(name = "designation")
     private String designation;
+    @Column(name = "width")
     private Long width;
+    @Column(name = "length")
     private Long length;
+    @ManyToOne
+    @JoinColumn(name = "aerodrome_id", nullable = false)
+    private Aerodrome aerodrome;
 
     public RunwayModel(Long id, String designation, Long width, Long length) {
         this.id = id;

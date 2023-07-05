@@ -1,8 +1,11 @@
 package com.juniorbocelli.xmobotscase.aerodrome.data.models;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import com.juniorbocelli.xmobotscase.aerodrome.domain.entities.Aerodrome;
+import com.juniorbocelli.xmobotscase.aerodrome.domain.entities.Coordinates;
 import com.juniorbocelli.xmobotscase.runway.domain.entities.Runway;
 
 public class AerodromeRequestModel {
@@ -23,11 +26,20 @@ public class AerodromeRequestModel {
         aerodrome.setCity(aerodromeRequestModel.getCity());
         aerodrome.setDescription(aerodromeRequestModel.getDescription());
         aerodrome.setRunways(aerodromeRequestModel.getRunways());
-        aerodrome.setPositionX(aerodromeRequestModel.getPositionX());
-        aerodrome.setPositionY(aerodromeRequestModel.getPositionY());
+        Coordinates coordinates = new Coordinates(aerodromeRequestModel.getPositionX(),
+                aerodromeRequestModel.getPositionY());
+        aerodrome.setCoordinates(coordinates);
+        aerodrome.setCreatedAt(aerodromeRequestModel.getStringLocalDate());
 
         return aerodrome;
     }
+
+    public String getStringLocalDate() {
+        Date date = new Date();
+        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+
+        return formatter.format(date);
+    };
 
     public Long getId() {
         return id;
@@ -84,5 +96,4 @@ public class AerodromeRequestModel {
     public void setPositionY(String positionY) {
         this.positionY = positionY;
     }
-
 }

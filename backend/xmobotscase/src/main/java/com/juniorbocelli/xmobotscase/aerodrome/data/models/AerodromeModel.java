@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import com.juniorbocelli.xmobotscase.aerodrome.domain.entities.Aerodrome;
+import com.juniorbocelli.xmobotscase.aerodrome.domain.entities.Coordinates;
 import com.juniorbocelli.xmobotscase.runway.domain.entities.Runway;
 import com.juniorbocelli.xmobotscase.runway.data.models.RunwayModel;
 
@@ -37,10 +38,12 @@ public class AerodromeModel {
     private String positionX;
     @Column(name = "position_y", nullable = false, length = 10)
     private String positionY;
+    @Column(name = "created_at")
+    private String createdAt;
 
     public AerodromeModel(Long id, String name, String city, String description, List<RunwayModel> runways,
             String positionX,
-            String positionY) {
+            String positionY, String createdAt) {
         this.id = id;
         this.name = name;
         this.city = city;
@@ -48,6 +51,7 @@ public class AerodromeModel {
         this.runways = runways;
         this.positionX = positionX;
         this.positionY = positionY;
+        this.createdAt = createdAt;
     }
 
     public AerodromeModel() {
@@ -69,8 +73,9 @@ public class AerodromeModel {
 
             return runway;
         }).collect(Collectors.toList()));
-        aerodrome.setPositionX(aerodromeModel.getPositionX());
-        aerodrome.setPositionY(aerodromeModel.getPositionY());
+        Coordinates coordinates = new Coordinates(aerodromeModel.getPositionX(), aerodromeModel.getPositionY());
+        aerodrome.setCoordinates(coordinates);
+        aerodrome.setCreatedAt(aerodromeModel.getCreatedAt());
 
         return aerodrome;
     }
@@ -90,8 +95,9 @@ public class AerodromeModel {
 
             return runwayModel;
         }).collect(Collectors.toList()));
-        aerodromeModel.setPositionX(aerodrome.getPositionX());
-        aerodromeModel.setPositionY(aerodrome.getPositionY());
+        aerodromeModel.setPositionX(aerodrome.getCoordinates().getPositionX());
+        aerodromeModel.setPositionY(aerodrome.getCoordinates().getPositionY());
+        aerodromeModel.setCreatedAt(aerodrome.getCreatedAt());
 
         return aerodromeModel;
     }
@@ -112,8 +118,8 @@ public class AerodromeModel {
 
                 return runway;
             }).collect(Collectors.toList()));
-            objAerodrome.setPositionX(temp.getPositionX());
-            objAerodrome.setPositionY(temp.getPositionY());
+            Coordinates coordinates = new Coordinates(temp.getPositionX(), temp.getPositionY());
+            objAerodrome.setCoordinates(coordinates);
 
             return objAerodrome;
         }).collect(Collectors.toList());
@@ -173,5 +179,13 @@ public class AerodromeModel {
 
     public void setPositionY(String positionY) {
         this.positionX = positionY;
+    }
+
+    public String getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(String createdAt) {
+        this.createdAt = createdAt;
     }
 }

@@ -1,28 +1,25 @@
-package com.juniorbocelli.xmobotscase.aerodrome.domain.entities;
+package com.juniorbocelli.xmobotscase.aerodrome.data.models;
 
 import java.util.List;
 
+import com.juniorbocelli.xmobotscase.aerodrome.domain.entities.Aerodrome;
+import com.juniorbocelli.xmobotscase.aerodrome.domain.entities.Coordinates;
 import com.juniorbocelli.xmobotscase.runway.domain.entities.Runway;
 
-public class Aerodrome {
-    private Long id;
+public class AerodromeJsonRequestModel {
     private String name;
     private String city;
     private String description;
-
     private List<Runway> runways;
+    private String created_at;
 
-    private String createdAt;
+    public static Aerodrome toAerodrome(AerodromeJsonRequestModel aerodromeJsonRequestModel) {
 
-    private Coordinates coordinates;
-
-    public Long getId() {
-        return id;
     }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+    private Coordinates coordinatesFromDescription() {
+
+    };
 
     public String getName() {
         return name;
@@ -56,19 +53,11 @@ public class Aerodrome {
         this.runways = runways;
     }
 
-    public String getCreatedAt() {
-        return createdAt;
+    public String getCreated_at() {
+        return created_at;
     }
 
-    public void setCreatedAt(String createdAt) {
-        this.createdAt = createdAt;
-    }
-
-    public Coordinates getCoordinates() {
-        return coordinates;
-    }
-
-    public void setCoordinates(Coordinates coordinates) {
-        this.coordinates = coordinates;
+    public void setCreated_at(String created_at) {
+        this.created_at = created_at;
     }
 }

@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import com.juniorbocelli.xmobotscase.aerodrome.domain.entities.Aerodrome;
-import com.juniorbocelli.xmobotscase.aerodrome.domain.entities.Coordinates;
 import com.juniorbocelli.xmobotscase.runway.domain.entities.Runway;
 import com.juniorbocelli.xmobotscase.runway.data.models.RunwayModel;
 
@@ -31,26 +30,24 @@ public class AerodromeModel {
     @Column(name = "description", nullable = false, length = 500)
     private String description;
 
+    @Column(name = "dms", nullable = false, length = 22)
+    private String dms;
+
     @OneToMany(mappedBy = "aerodrome", cascade = CascadeType.ALL)
     private List<RunwayModel> runways = new ArrayList<>();
 
-    @Column(name = "position_x", nullable = false, length = 10)
-    private String positionX;
-    @Column(name = "position_y", nullable = false, length = 10)
-    private String positionY;
     @Column(name = "created_at")
     private String createdAt;
 
-    public AerodromeModel(Long id, String name, String city, String description, List<RunwayModel> runways,
-            String positionX,
-            String positionY, String createdAt) {
+    public AerodromeModel(Long id, String name, String city, String description, String dms, List<RunwayModel> runways,
+            String createdAt) {
         this.id = id;
         this.name = name;
         this.city = city;
         this.description = description;
+        this.dms = dms;
+
         this.runways = runways;
-        this.positionX = positionX;
-        this.positionY = positionY;
         this.createdAt = createdAt;
     }
 
@@ -64,6 +61,7 @@ public class AerodromeModel {
         aerodrome.setName(aerodromeModel.getName());
         aerodrome.setCity(aerodromeModel.getCity());
         aerodrome.setDescription(aerodromeModel.getDescription());
+        aerodrome.setDms(aerodromeModel.getDms());
         aerodrome.setRunways(aerodromeModel.getRunways().stream().map(temp -> {
             Runway runway = new Runway();
             runway.setId(temp.getId());
@@ -73,8 +71,6 @@ public class AerodromeModel {
 
             return runway;
         }).collect(Collectors.toList()));
-        Coordinates coordinates = new Coordinates(aerodromeModel.getPositionX(), aerodromeModel.getPositionY());
-        aerodrome.setCoordinates(coordinates);
         aerodrome.setCreatedAt(aerodromeModel.getCreatedAt());
 
         return aerodrome;
@@ -86,6 +82,7 @@ public class AerodromeModel {
         aerodromeModel.setName(aerodrome.getName());
         aerodromeModel.setCity(aerodrome.getCity());
         aerodromeModel.setDescription(aerodrome.getDescription());
+        aerodromeModel.setDms(aerodrome.getDms());
         aerodromeModel.setRunways(aerodrome.getRunways().stream().map(temp -> {
             RunwayModel runwayModel = new RunwayModel();
             runwayModel.setId(temp.getId());
@@ -95,8 +92,6 @@ public class AerodromeModel {
 
             return runwayModel;
         }).collect(Collectors.toList()));
-        aerodromeModel.setPositionX(aerodrome.getCoordinates().getPositionX());
-        aerodromeModel.setPositionY(aerodrome.getCoordinates().getPositionY());
         aerodromeModel.setCreatedAt(aerodrome.getCreatedAt());
 
         return aerodromeModel;
@@ -109,6 +104,7 @@ public class AerodromeModel {
             objAerodrome.setName(temp.getName());
             objAerodrome.setCity(temp.getCity());
             objAerodrome.setDescription(temp.getDescription());
+            objAerodrome.setDms(temp.getDms());
             objAerodrome.setRunways(temp.getRunways().stream().map(obj -> {
                 Runway runway = new Runway();
                 runway.setId(obj.getId());
@@ -118,8 +114,6 @@ public class AerodromeModel {
 
                 return runway;
             }).collect(Collectors.toList()));
-            Coordinates coordinates = new Coordinates(temp.getPositionX(), temp.getPositionY());
-            objAerodrome.setCoordinates(coordinates);
 
             return objAerodrome;
         }).collect(Collectors.toList());
@@ -157,28 +151,20 @@ public class AerodromeModel {
         this.description = description;
     }
 
+    public String getDms() {
+        return dms;
+    }
+
+    public void setDms(String dms) {
+        this.dms = dms;
+    }
+
     public List<RunwayModel> getRunways() {
         return runways;
     }
 
     public void setRunways(List<RunwayModel> runways) {
         this.runways = runways;
-    }
-
-    public String getPositionX() {
-        return positionX;
-    }
-
-    public void setPositionX(String positionX) {
-        this.positionX = positionX;
-    }
-
-    public String getPositionY() {
-        return positionY;
-    }
-
-    public void setPositionY(String positionY) {
-        this.positionX = positionY;
     }
 
     public String getCreatedAt() {

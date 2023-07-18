@@ -9,12 +9,11 @@ public class Aerodrome {
     private String name;
     private String city;
     private String description;
+    private String dms;
 
     private List<Runway> runways;
 
     private String createdAt;
-
-    private Coordinates coordinates;
 
     public Long getId() {
         return id;
@@ -48,6 +47,14 @@ public class Aerodrome {
         this.description = description;
     }
 
+    public String getDms() {
+        return dms;
+    }
+
+    public void setDms(String dms) {
+        this.dms = dms;
+    }
+
     public List<Runway> getRunways() {
         return runways;
     }
@@ -62,13 +69,5 @@ public class Aerodrome {
 
     public void setCreatedAt(String createdAt) {
         this.createdAt = createdAt;
-    }
-
-    public Coordinates getCoordinates() {
-        return coordinates;
-    }
-
-    public void setCoordinates(Coordinates coordinates) {
-        this.coordinates = coordinates;
     }
 }

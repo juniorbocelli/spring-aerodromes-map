@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import com.juniorbocelli.xmobotscase.aerodrome.domain.entities.Aerodrome;
-import com.juniorbocelli.xmobotscase.aerodrome.domain.entities.Coordinates;
 import com.juniorbocelli.xmobotscase.runway.domain.entities.Runway;
 import com.juniorbocelli.xmobotscase.user.data.models.UserResponseModel;
 
@@ -13,11 +12,9 @@ public class AerodromeResponseModel {
     private String name;
     private String city;
     private String description;
+    private String dms;
 
     private List<Runway> runways;
-
-    private String positionX;
-    private String positionY;
 
     private String createdAt;
 
@@ -25,15 +22,14 @@ public class AerodromeResponseModel {
 
     }
 
-    public AerodromeResponseModel(Long id, String name, String city, String description, List<Runway> runways,
-            String positionX, String positionY, String createdAt) {
+    public AerodromeResponseModel(Long id, String name, String city, String description, String dms,
+            List<Runway> runways, String createdAt) {
         this.id = id;
         this.name = name;
         this.city = city;
         this.description = description;
+        this.dms = dms;
         this.runways = runways;
-        this.positionX = positionX;
-        this.positionY = positionY;
         this.createdAt = createdAt;
     }
 
@@ -43,9 +39,8 @@ public class AerodromeResponseModel {
         aerodromeResponseModel.setName(aerodrome.getName());
         aerodromeResponseModel.setCity(aerodrome.getCity());
         aerodromeResponseModel.setDescription(aerodrome.getDescription());
+        aerodromeResponseModel.setDms(aerodrome.getDms());
         aerodromeResponseModel.setRunways(aerodrome.getRunways());
-        aerodromeResponseModel.setPositionX(aerodrome.getCoordinates().getPositionX());
-        aerodromeResponseModel.setPositionY(aerodrome.getCoordinates().getPositionY());
         aerodromeResponseModel.setCreatedAt(aerodrome.getCreatedAt());
 
         return aerodromeResponseModel;
@@ -91,28 +86,20 @@ public class AerodromeResponseModel {
         this.description = description;
     }
 
+    public String getDms() {
+        return dms;
+    }
+
+    public void setDms(String dms) {
+        this.dms = dms;
+    }
+
     public List<Runway> getRunways() {
         return runways;
     }
 
     public void setRunways(List<Runway> runways) {
         this.runways = runways;
-    }
-
-    public String getPositionX() {
-        return positionX;
-    }
-
-    public void setPositionX(String positionX) {
-        this.positionX = positionX;
-    }
-
-    public String getPositionY() {
-        return positionY;
-    }
-
-    public void setPositionY(String positionY) {
-        this.positionY = positionY;
     }
 
     public String getCreatedAt() {

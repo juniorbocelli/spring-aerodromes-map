@@ -5,7 +5,6 @@ import java.util.Date;
 import java.util.List;
 
 import com.juniorbocelli.xmobotscase.aerodrome.domain.entities.Aerodrome;
-import com.juniorbocelli.xmobotscase.aerodrome.domain.entities.Coordinates;
 import com.juniorbocelli.xmobotscase.runway.domain.entities.Runway;
 
 public class AerodromeRequestModel {
@@ -13,11 +12,9 @@ public class AerodromeRequestModel {
     private String name;
     private String city;
     private String description;
+    private String dms;
 
     private List<Runway> runways;
-
-    private String positionX;
-    private String positionY;
 
     public static Aerodrome toAerodrome(AerodromeRequestModel aerodromeRequestModel) {
         Aerodrome aerodrome = new Aerodrome();
@@ -25,10 +22,8 @@ public class AerodromeRequestModel {
         aerodrome.setName(aerodromeRequestModel.getName());
         aerodrome.setCity(aerodromeRequestModel.getCity());
         aerodrome.setDescription(aerodromeRequestModel.getDescription());
+        aerodrome.setDms(aerodromeRequestModel.getDms());
         aerodrome.setRunways(aerodromeRequestModel.getRunways());
-        Coordinates coordinates = new Coordinates(aerodromeRequestModel.getPositionX(),
-                aerodromeRequestModel.getPositionY());
-        aerodrome.setCoordinates(coordinates);
         aerodrome.setCreatedAt(aerodromeRequestModel.getStringLocalDate());
 
         return aerodrome;
@@ -73,27 +68,19 @@ public class AerodromeRequestModel {
         this.description = description;
     }
 
+    public String getDms() {
+        return dms;
+    }
+
+    public void setDms(String dms) {
+        this.dms = dms;
+    }
+
     public List<Runway> getRunways() {
         return runways;
     }
 
     public void setRunways(List<Runway> runways) {
         this.runways = runways;
-    }
-
-    public String getPositionX() {
-        return positionX;
-    }
-
-    public void setPositionX(String positionX) {
-        this.positionX = positionX;
-    }
-
-    public String getPositionY() {
-        return positionY;
-    }
-
-    public void setPositionY(String positionY) {
-        this.positionY = positionY;
     }
 }

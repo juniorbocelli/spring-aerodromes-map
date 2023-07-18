@@ -3,12 +3,10 @@ package com.juniorbocelli.xmobotscase.aerodrome.utils;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import com.juniorbocelli.xmobotscase.aerodrome.domain.entities.Coordinates;
-
 public class CoordenateTools {
-    private final Pattern firstPattern = Pattern.compile("^\\d{6}S/\\d{7}W$");
-    private final Pattern secondPattern = Pattern.compile("^\\d{6}.\\d{2}S/\\d{7}.\\d{2}W$");
-    private final Pattern thirdPattern = Pattern.compile("^\\d{6},\\d{2}S/\\d{7},\\d{2}W$");
+    private final Pattern firstPattern = Pattern.compile("(\\d{6})(S|N)/(\\d{7})(W|E)");
+    private final Pattern secondPattern = Pattern.compile("(\\d{6}).(\\d{2})(S|N)/(\\d{7}).(\\d{2})(W|E)");
+    private final Pattern thirdPattern = Pattern.compile("(\\d{6}),(\\d{2})(S|N)/(\\d{7}),(\\d{2})(W|E)");
 
     private String customText;
 
@@ -24,12 +22,26 @@ public class CoordenateTools {
         return this.getMatcherFromFirst().find();
     }
 
+    public String getDmsStringFromFirstPattern() {
+        Matcher matcher = this.getMatcherFromFirst();
+        matcher.find();
+
+        return matcher.group(0);
+    }
+
     public Matcher getMatcherFromSecond() {
         return secondPattern.matcher(this.customText);
     }
 
     public boolean isSecondPattern() {
         return this.getMatcherFromSecond().find();
+    }
+
+    public String getDmsStringFromSecondPattern() {
+        Matcher matcher = this.getMatcherFromSecond();
+        matcher.find();
+
+        return matcher.group(0);
     }
 
     public Matcher getMatcherFromThird() {
@@ -40,8 +52,23 @@ public class CoordenateTools {
         return this.getMatcherFromThird().find();
     }
 
-    public Coordinates dmsToCoordinates(int hoursS, int minutesS, int secondsS, int hoursW, int minutesW, int secondsW) {
-        
+    public String getDmsStringFromThirdPattern() {
+        Matcher matcher = this.getMatcherFromThird();
+        matcher.find();
+
+        return matcher.group(0);
+    }
+
+    public String getDmsString() {
+        if (this.isFisrtPattern()) {
+            return this.getDmsStringFromFirstPattern();
+        } else if (this.isSecondPattern()) {
+            return this.getDmsStringFromSecondPattern();
+        } else if (this.isThirdPattern()) {
+            return this.getDmsStringFromThirdPattern();
+        }
+
+        return null;
     }
 
     // *** Getters ans Setters

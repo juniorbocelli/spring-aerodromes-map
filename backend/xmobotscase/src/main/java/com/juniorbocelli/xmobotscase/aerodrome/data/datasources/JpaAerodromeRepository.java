@@ -8,4 +8,4 @@ import com.juniorbocelli.xmobotscase.aerodrome.data.models.AerodromeModel;
 @Repository
 public interface JpaAerodromeRepository extends JpaRepository<AerodromeModel, Long> {
 
-}
+};

@@ -41,6 +41,7 @@ public class AerodromeModel {
 
     public AerodromeModel(Long id, String name, String city, String description, String dms, List<RunwayModel> runways,
             String createdAt) {
+        super();
         this.id = id;
         this.name = name;
         this.city = city;
@@ -52,7 +53,7 @@ public class AerodromeModel {
     }
 
     public AerodromeModel() {
-
+        super();
     }
 
     public Aerodrome toAerodrome(AerodromeModel aerodromeModel) {

@@ -47,6 +47,7 @@ public class AerodromeJsonRequestModel {
 
     private void setDmsFromDescription() {
         CoordenateTools coordenateTools = new CoordenateTools(this.description);
+        // TODO: insert exception
         this.dms = coordenateTools.getDmsString();
     };
 

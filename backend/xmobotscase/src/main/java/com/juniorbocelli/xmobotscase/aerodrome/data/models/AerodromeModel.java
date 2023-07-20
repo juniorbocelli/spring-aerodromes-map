@@ -5,8 +5,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import com.juniorbocelli.xmobotscase.aerodrome.domain.entities.Aerodrome;
-import com.juniorbocelli.xmobotscase.runway.domain.entities.Runway;
 import com.juniorbocelli.xmobotscase.runway.data.models.RunwayModel;
+import com.juniorbocelli.xmobotscase.runway.domain.entities.Runway;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;

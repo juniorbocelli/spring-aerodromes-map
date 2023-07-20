@@ -1,8 +1,10 @@
-package com.juniorbocelli.xmobotscase.user.data.datasources;
+package com.juniorbocelli.xmobotscase.user.data.datasources.impl;
 
 import java.util.List;
 import java.util.Optional;
 
+import com.juniorbocelli.xmobotscase.user.data.datasources.JpaUserRepository;
+import com.juniorbocelli.xmobotscase.user.data.datasources.UserDatasourcesLocal;
 import com.juniorbocelli.xmobotscase.user.data.models.UserModel;
 
 public class UserDatasourcesLocalImpl implements UserDatasourcesLocal {

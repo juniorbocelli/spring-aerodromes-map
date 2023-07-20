@@ -1,8 +1,10 @@
-package com.juniorbocelli.xmobotscase.runway.data.datasources;
+package com.juniorbocelli.xmobotscase.runway.data.datasources.impl;
 
 import java.util.List;
 import java.util.Optional;
 
+import com.juniorbocelli.xmobotscase.runway.data.datasources.JpaRunwayRepository;
+import com.juniorbocelli.xmobotscase.runway.data.datasources.RunwayDatasourcesLocal;
 import com.juniorbocelli.xmobotscase.runway.data.models.RunwayModel;
 
 public class RunwayDatasourcesLocalImpl implements RunwayDatasourcesLocal {

@@ -1,97 +1,72 @@
 package com.juniorbocelli.xmobotscase.aerodrome.data.models;
 
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
+
+import javax.management.JMException;
+
+import org.apache.commons.io.IOUtils;
+import org.json.JSONArray;
+import org.json.JSONObject;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.juniorbocelli.xmobotscase.aerodrome.domain.entities.Aerodrome;
-import com.juniorbocelli.xmobotscase.aerodrome.utils.CoordenateTools;
 import com.juniorbocelli.xmobotscase.runway.domain.entities.Runway;
 
 public class AerodromeJsonRequestModel {
-    private String name;
-    private String city;
-    private String description;
-    private String dms;
-    private List<Runway> runways;
-    private String created_at;
+    private MultipartFile file;
 
-    public AerodromeJsonRequestModel(String name, String city, String description, List<Runway> runways,
-            String created_at) {
-        this.name = name;
-        this.city = city;
-        this.description = description;
-        this.setDmsFromDescription();
-        this.runways = runways;
-        this.created_at = created_at;
+    public static List<Aerodrome> toAerodromeList(AerodromeJsonRequestModel aerodromeJsonRequestModel)
+            throws IOException, JMException {
+        JSONObject jsonObject = fileToJson(aerodromeJsonRequestModel.getFile());
+
+        JSONArray aerodromesJsonArray = jsonObject.getJSONArray("aerodromes");
+
+        List<Aerodrome> aerodromes = new ArrayList<Aerodrome>();
+
+        for (int i = 0; i < aerodromesJsonArray.length(); i++) {
+            List<Runway> runways = new ArrayList<Runway>();
+            JSONArray runwaysJson = aerodromesJsonArray.getJSONObject(i).optJSONArray("runways");
+            for (int j = 0; j < runwaysJson.length(); j++) {
+                Runway runway = new Runway();
+                JSONObject runwayJsonObject = runwaysJson.optJSONObject(j);
+
+                runway.setDesignation(runwayJsonObject.getString("designation"));
+                runway.setWidth((long) runwayJsonObject.getInt("width"));
+                runway.setLength((long) runwayJsonObject.getInt("length"));
+
+                runways.add(runway);
+            }
+
+            Aerodrome aerodrome = new Aerodrome();
+            JSONObject aerodromeJsonObject = aerodromesJsonArray.getJSONObject(i);
+            aerodrome.setName(aerodromeJsonObject.getString("name"));
+            aerodrome.setCity(aerodromeJsonObject.getString("city"));
+            aerodrome.setDescription(aerodromeJsonObject.getString("description"));
+            aerodrome.setDmsFromDescription();
+            aerodrome.setRunways(runways);
+            aerodrome.setCreatedAt(aerodromeJsonObject.getString("created_at"));
+
+            aerodromes.add(aerodrome);
+        }
+
+        return aerodromes;
     }
 
-    public static Aerodrome toAerodrome(AerodromeJsonRequestModel aerodromeJsonRequestModel) {
-        Aerodrome aerodrome = new Aerodrome();
-        aerodrome.setName(aerodromeJsonRequestModel.getName());
-        aerodrome.setCity(aerodromeJsonRequestModel.getCity());
-        aerodrome.setDescription(aerodromeJsonRequestModel.getDescription());
-        aerodrome.setDms(aerodromeJsonRequestModel.getDms());
-        aerodrome.setRunways(aerodromeJsonRequestModel.getRunways().stream().map(temp -> {
-            Runway runway = new Runway();
-            runway.setId(temp.getId());
-            runway.setDesignation(temp.getDesignation());
-            runway.setWidth(temp.getWidth());
-            runway.setLength(temp.getLength());
+    private static JSONObject fileToJson(MultipartFile file) throws IOException {
+        // https://betterprogramming.pub/how-to-read-a-json-file-and-return-its-content-in-a-spring-boot-api-1f69e552f7af
+        String staticDataString = IOUtils.toString(file.getInputStream(), StandardCharsets.UTF_8);
 
-            return runway;
-        }).collect(Collectors.toList()));
-        aerodrome.setCreatedAt(aerodromeJsonRequestModel.getCreated_at());
-
-        return aerodrome;
+        return new JSONObject(staticDataString);
     }
 
-    private void setDmsFromDescription() {
-        CoordenateTools coordenateTools = new CoordenateTools(this.description);
-        // TODO: insert exception
-        this.dms = coordenateTools.getDmsString();
-    };
-
-    public String getName() {
-        return name;
+    public MultipartFile getFile() {
+        return file;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getCity() {
-        return city;
-    }
-
-    public void setCity(String city) {
-        this.city = city;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public String getDms() {
-        return dms;
-    }
-
-    public List<Runway> getRunways() {
-        return runways;
-    }
-
-    public void setRunways(List<Runway> runways) {
-        this.runways = runways;
-    }
-
-    public String getCreated_at() {
-        return created_at;
-    }
-
-    public void setCreated_at(String created_at) {
-        this.created_at = created_at;
+    public void setFile(MultipartFile file) {
+        this.file = file;
     }
 }

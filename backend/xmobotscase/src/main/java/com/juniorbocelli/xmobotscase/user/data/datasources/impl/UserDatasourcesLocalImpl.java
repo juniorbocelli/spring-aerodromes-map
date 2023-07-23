@@ -15,20 +15,20 @@ public class UserDatasourcesLocalImpl implements UserDatasourcesLocal {
     }
 
     public void createUser(UserModel userModel) {
-        jpaUserRepository.save(userModel);
+        this.jpaUserRepository.save(userModel);
     }
 
     public void deleteUser(Long id) {
-        jpaUserRepository.deleteById(id);
+        this.jpaUserRepository.deleteById(id);
     }
 
     public UserModel getUser(Long id) {
-        Optional<UserModel> op = jpaUserRepository.findById(id);
+        Optional<UserModel> op = this.jpaUserRepository.findById(id);
 
         return op.get();
     }
 
     public List<UserModel> getUsers() {
-        return jpaUserRepository.findAll();
+        return this.jpaUserRepository.findAll();
     };
 };

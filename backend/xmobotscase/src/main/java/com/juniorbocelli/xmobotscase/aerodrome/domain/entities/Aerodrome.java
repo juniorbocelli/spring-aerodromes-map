@@ -2,6 +2,7 @@ package com.juniorbocelli.xmobotscase.aerodrome.domain.entities;
 
 import java.util.List;
 
+import com.juniorbocelli.xmobotscase.aerodrome.utils.CoordenateTools;
 import com.juniorbocelli.xmobotscase.runway.domain.entities.Runway;
 
 public class Aerodrome {
@@ -54,6 +55,11 @@ public class Aerodrome {
     public void setDms(String dms) {
         this.dms = dms;
     }
+
+    public void setDmsFromDescription() {
+        CoordenateTools coordenateTools = new CoordenateTools(this.description);
+        this.dms = coordenateTools.getDmsString();
+    };
 
     public List<Runway> getRunways() {
         return runways;

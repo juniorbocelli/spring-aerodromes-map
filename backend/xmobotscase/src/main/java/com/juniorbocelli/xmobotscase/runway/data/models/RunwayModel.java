@@ -3,6 +3,7 @@ package com.juniorbocelli.xmobotscase.runway.data.models;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import com.juniorbocelli.xmobotscase.aerodrome.data.models.AerodromeModel;
 import com.juniorbocelli.xmobotscase.aerodrome.domain.entities.Aerodrome;
 import com.juniorbocelli.xmobotscase.runway.domain.entities.Runway;
 
@@ -29,7 +30,8 @@ public class RunwayModel {
     private Long length;
     @ManyToOne
     @JoinColumn(name = "aerodrome_id", nullable = false)
-    private Aerodrome aerodrome;
+    private 
+    AerodromeModel aerodrome;
 
     public RunwayModel(Long id, String designation, Long width, Long length) {
         this.id = id;

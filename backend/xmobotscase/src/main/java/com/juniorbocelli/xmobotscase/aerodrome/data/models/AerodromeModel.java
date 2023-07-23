@@ -36,7 +36,7 @@ public class AerodromeModel {
     @OneToMany(mappedBy = "aerodrome", cascade = CascadeType.ALL)
     private List<RunwayModel> runways = new ArrayList<>();
 
-    @Column(name = "created_at")
+    @Column(name = "created_at", nullable = false, length = 10)
     private String createdAt;
 
     public AerodromeModel(Long id, String name, String city, String description, String dms, List<RunwayModel> runways,

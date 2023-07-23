@@ -3,12 +3,19 @@ package com.juniorbocelli.xmobotscase.aerodrome.utils;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.springframework.stereotype.Component;
+
+@Component
 public class CoordenateTools {
     private final Pattern firstPattern = Pattern.compile("(\\d{6})(S|N)/(\\d{7})(W|E)");
     private final Pattern secondPattern = Pattern.compile("(\\d{6}).(\\d{2})(S|N)/(\\d{7}).(\\d{2})(W|E)");
     private final Pattern thirdPattern = Pattern.compile("(\\d{6}),(\\d{2})(S|N)/(\\d{7}),(\\d{2})(W|E)");
 
     private String customText;
+
+    public CoordenateTools() {
+
+    }
 
     public CoordenateTools(String customText) {
         this.customText = customText;

@@ -12,6 +12,7 @@ CREATE TABLE aerodromes (
   city VARCHAR(100) NOT NULL,
   description VARCHAR(500) NOT NULL,
   dms VARCHAR(22) NOT NULL
+  created_at VARCHAR(10)
 );
 
 CREATE TABLE runways (
@@ -19,5 +20,5 @@ CREATE TABLE runways (
   designation VARCHAR(5),
   width int NOT NULL,
   length int NOT NULL,
-  CONSTRAINT [fk_aerodrome_id] FOREIGN KEY(aerodrome_id) REFERENCES aerodromes(id)
+  CONSTRAINT fk_aerodrome_id FOREIGN KEY(aerodrome_id) REFERENCES aerodromes(id)
 );

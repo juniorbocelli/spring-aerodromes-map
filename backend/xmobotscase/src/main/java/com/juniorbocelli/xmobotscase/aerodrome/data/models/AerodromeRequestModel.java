@@ -22,7 +22,12 @@ public class AerodromeRequestModel {
         aerodrome.setName(aerodromeRequestModel.getName());
         aerodrome.setCity(aerodromeRequestModel.getCity());
         aerodrome.setDescription(aerodromeRequestModel.getDescription());
-        aerodrome.setDms(aerodromeRequestModel.getDms());
+
+        if (aerodromeRequestModel.getDms() != null)
+            aerodrome.setDms(aerodromeRequestModel.getDms());
+        else
+            aerodrome.setDmsFromDescription(aerodromeRequestModel.getDescription());
+
         aerodrome.setRunways(aerodromeRequestModel.getRunways());
         aerodrome.setCreatedAt(aerodromeRequestModel.getStringLocalDate());
 

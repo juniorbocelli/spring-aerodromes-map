@@ -93,6 +93,7 @@ public class AerodromeModel {
 
             return runwayModel;
         }).collect(Collectors.toList()));
+        aerodromeModel.addRunways();
         aerodromeModel.setCreatedAt(aerodrome.getCreatedAt());
 
         return aerodromeModel;
@@ -166,6 +167,10 @@ public class AerodromeModel {
 
     public void setRunways(List<RunwayModel> runways) {
         this.runways = runways;
+    }
+
+    public void addRunways() {
+        this.runways.forEach(t -> t.setAerodrome(this));
     }
 
     public String getCreatedAt() {

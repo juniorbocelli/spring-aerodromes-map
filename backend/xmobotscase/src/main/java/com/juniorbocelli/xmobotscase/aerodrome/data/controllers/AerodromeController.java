@@ -38,12 +38,14 @@ public class AerodromeController {
     @PostMapping(path = "aerodrome", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<AerodromeResponseModel> create(@RequestBody AerodromeRequestModel aerodromeRequestModel) {
         try {
+            System.out.println(AerodromeRequestModel.toAerodrome(aerodromeRequestModel).getDms());
             this.createAerodrome.call(AerodromeRequestModel.toAerodrome(aerodromeRequestModel));
 
             return new ResponseEntity<AerodromeResponseModel>(
                     new AerodromeResponseModel(HttpStatus.OK.value(), HttpStatus.OK.name()), HttpStatus.OK);
         } catch (Exception e) {
-            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<AerodromeResponseModel>(
+                    new AerodromeResponseModel(HttpStatus.BAD_REQUEST.value(), e.getMessage()), HttpStatus.BAD_REQUEST);
         }
     }
 
@@ -62,6 +64,7 @@ public class AerodromeController {
     public ResponseEntity<AerodromeResponseModel> uploadJsonFile(
             @ModelAttribute AerodromeJsonRequestModel aerodromeJsonRequestModel) throws IOException, JSException {
         try {
+            System.out.println(AerodromeJsonRequestModel.toAerodromeList(aerodromeJsonRequestModel).get(0).getName());
             this.createAerodromeFromUpload.call(AerodromeJsonRequestModel.toAerodromeList(aerodromeJsonRequestModel));
 
             return new ResponseEntity<AerodromeResponseModel>(

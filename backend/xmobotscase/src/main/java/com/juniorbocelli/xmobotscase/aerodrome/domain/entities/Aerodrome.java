@@ -61,6 +61,11 @@ public class Aerodrome {
         this.dms = coordenateTools.getDmsString();
     };
 
+    public void setDmsFromDescription(String descripition) {
+        CoordenateTools coordenateTools = new CoordenateTools(descripition);
+        this.dms = coordenateTools.getDmsString();
+    };
+
     public List<Runway> getRunways() {
         return runways;
     }

@@ -28,10 +28,9 @@ public class RunwayModel {
     private Long width;
     @Column(name = "length")
     private Long length;
-    @ManyToOne
-    @JoinColumn(name = "aerodrome_id", nullable = false)
-    private 
-    AerodromeModel aerodrome;
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "aerodrome_id")
+    private AerodromeModel aerodrome;
 
     public RunwayModel(Long id, String designation, Long width, Long length) {
         this.id = id;
@@ -108,4 +107,11 @@ public class RunwayModel {
         this.length = length;
     }
 
+    public AerodromeModel getAerodrome() {
+        return aerodrome;
+    }
+
+    public void setAerodrome(AerodromeModel aerodrome) {
+        this.aerodrome = aerodrome;
+    }
 }

@@ -1,4 +1,4 @@
-package com.juniorbocelli.xmobotscase.core.security;
+package com.juniorbocelli.xmobotscase.authentication;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -18,8 +18,8 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
-    public JWTAuthorizationFilter(AuthenticationManager authManager) {
-        super(authManager);
+    public JWTAuthorizationFilter() {
+        super(new CustomAuthenticationManager());
     }
 
     @Override

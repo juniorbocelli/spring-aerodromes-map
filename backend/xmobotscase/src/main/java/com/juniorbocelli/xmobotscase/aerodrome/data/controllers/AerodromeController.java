@@ -35,7 +35,7 @@ public class AerodromeController {
         this.createAerodromeFromUpload = createAerodromeFromUpload;
     }
 
-    @PostMapping(path = "aerodrome", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(path = "api/aerodrome", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<AerodromeResponseModel> create(@RequestBody AerodromeRequestModel aerodromeRequestModel) {
         try {
             System.out.println(AerodromeRequestModel.toAerodrome(aerodromeRequestModel).getDms());
@@ -49,7 +49,7 @@ public class AerodromeController {
         }
     }
 
-    @GetMapping(path = "aerodrome")
+    @GetMapping(path = "api/aerodrome")
     public ResponseEntity<List<Aerodrome>> getAerodromes() {
         try {
             List<Aerodrome> aerodromes = this.getAerodromes.call();
@@ -60,7 +60,7 @@ public class AerodromeController {
         }
     }
 
-    @PostMapping(path = "aerodrome/upload", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    @PostMapping(path = "api/aerodrome/upload", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<AerodromeResponseModel> uploadJsonFile(
             @ModelAttribute AerodromeJsonRequestModel aerodromeJsonRequestModel) throws IOException, JSException {
         try {

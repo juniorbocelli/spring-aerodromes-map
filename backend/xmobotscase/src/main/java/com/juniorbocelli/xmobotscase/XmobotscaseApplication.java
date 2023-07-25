@@ -42,6 +42,6 @@ public class XmobotscaseApplication {
 
 	static TypeFilter removeModelAndEntitiesFilter() {
 		return (MetadataReader mr,
-				MetadataReaderFactory mrf) -> !mr.getClassMetadata().getClassName().endsWith("Model");
+				MetadataReaderFactory mrf) -> !mr.getClassMetadata().getClassName().endsWith("Model") && !mr.getClassMetadata().getClassName().endsWith("Filter");
 	}
 }

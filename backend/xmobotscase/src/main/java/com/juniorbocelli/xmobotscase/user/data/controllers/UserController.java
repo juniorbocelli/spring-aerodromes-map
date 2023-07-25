@@ -26,7 +26,7 @@ public class UserController {
         this.getUsers = getUsers;
     }
 
-    @PostMapping(path = "user", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(path = "api/user", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<UserResponseModel> create(@RequestBody UserRequestModel userRequestModel) {
         try {
             this.createUser.call(UserRequestModel.toUser(userRequestModel));
@@ -38,7 +38,7 @@ public class UserController {
         }
     }
 
-    @GetMapping(path = "user")
+    @GetMapping(path = "api/user")
     public ResponseEntity<List<UserResponseModel>> getUsers() {
         try {
             List<User> users = this.getUsers.call();

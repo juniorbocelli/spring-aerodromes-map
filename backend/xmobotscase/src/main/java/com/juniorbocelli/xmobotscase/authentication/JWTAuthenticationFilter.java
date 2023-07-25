@@ -1,4 +1,4 @@
-package com.juniorbocelli.xmobotscase.core.security;
+package com.juniorbocelli.xmobotscase.authentication;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -21,12 +21,10 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
-    private AuthenticationManager authenticationManager;
+    private AuthenticationManager authenticationManager = new CustomAuthenticationManager();
 
-    public JWTAuthenticationFilter(AuthenticationManager authenticationManager) {
-        this.authenticationManager = authenticationManager;
-
-        setFilterProcessesUrl(SecurityConstants.SIGN_UP_URL);
+    public JWTAuthenticationFilter() {
+        setFilterProcessesUrl("/api/user/login");
     }
 
     @Override

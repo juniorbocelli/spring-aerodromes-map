@@ -10,18 +10,16 @@ public class UserResponseModel {
     private String name;
     private String email;
     private String password;
-    private String token;
 
     public UserResponseModel() {
 
     }
 
-    public UserResponseModel(Long id, String name, String email, String password, String token) {
+    public UserResponseModel(Long id, String name, String email, String password) {
         this.id = id;
         this.name = name;
         this.email = email;
         this.password = password;
-        this.token = token;
     }
 
     public static UserResponseModel toUserResponseModel(User user) {
@@ -30,7 +28,6 @@ public class UserResponseModel {
         userResponseModel.setName(user.getName());
         userResponseModel.setEmail(user.getEmail());
         userResponseModel.setPassword(user.getPassword());
-        userResponseModel.setToken(user.getToken());
 
         return userResponseModel;
     }
@@ -73,13 +70,5 @@ public class UserResponseModel {
 
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    public String getToken() {
-        return token;
-    }
-
-    public void setToken(String token) {
-        this.token = token;
     }
 }

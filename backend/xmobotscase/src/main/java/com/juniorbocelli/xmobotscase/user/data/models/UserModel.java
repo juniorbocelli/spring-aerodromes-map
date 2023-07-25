@@ -23,18 +23,15 @@ public class UserModel {
     @Column(name = "email", nullable = false, length = 100)
     private String email;
 
-    @Column(name = "password", nullable = false, length = 100)
+    @Column(name = "password", nullable = false, length = 32)
     private String password;
-    @Column(name = "token", nullable = false, length = 100)
-    private String token;
 
-    public UserModel(Long id, String name, String email, String password, String token) {
+    public UserModel(Long id, String name, String email, String password) {
         super();
         this.id = id;
         this.name = name;
         this.email = email;
         this.password = password;
-        this.token = token;
     }
 
     public UserModel() {
@@ -47,7 +44,6 @@ public class UserModel {
         user.setName(userModel.getName());
         user.setEmail(userModel.getEmail());
         user.setPassword(userModel.getPassword());
-        user.setToken(userModel.getToken());
 
         return user;
     }
@@ -58,7 +54,6 @@ public class UserModel {
         userModel.setName(user.getName());
         userModel.setEmail(user.getEmail());
         userModel.setPassword(user.getPassword());
-        userModel.setToken(user.getToken());
 
         return userModel;
     }
@@ -70,7 +65,6 @@ public class UserModel {
             objUser.setName(temp.getName());
             objUser.setEmail(temp.getEmail());
             objUser.setPassword(temp.getPassword());
-            objUser.setToken(temp.getToken());
 
             return objUser;
         }).collect(Collectors.toList());
@@ -106,13 +100,5 @@ public class UserModel {
 
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    public String getToken() {
-        return token;
-    }
-
-    public void setToken(String token) {
-        this.token = token;
     }
 }

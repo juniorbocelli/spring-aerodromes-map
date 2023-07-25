@@ -3,6 +3,8 @@ package com.juniorbocelli.xmobotscase.user.data.datasources.impl;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.data.domain.Example;
+
 import com.juniorbocelli.xmobotscase.user.data.datasources.JpaUserRepository;
 import com.juniorbocelli.xmobotscase.user.data.datasources.UserDatasourcesLocal;
 import com.juniorbocelli.xmobotscase.user.data.models.UserModel;
@@ -31,4 +33,15 @@ public class UserDatasourcesLocalImpl implements UserDatasourcesLocal {
     public List<UserModel> getUsers() {
         return this.jpaUserRepository.findAll();
     };
+
+    public UserModel findByUsername(String email) {
+        UserModel userModel = new UserModel();
+        userModel.setEmail(email);
+
+        Example<UserModel> example = Example.of(userModel);
+
+        Optional<UserModel> op = this.jpaUserRepository.findOne(example);
+
+        return op.get();
+    }
 };

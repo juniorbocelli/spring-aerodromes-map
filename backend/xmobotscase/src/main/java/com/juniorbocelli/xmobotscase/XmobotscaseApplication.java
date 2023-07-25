@@ -11,6 +11,7 @@ import org.springframework.context.annotation.ClassPathBeanDefinitionScanner;
 import org.springframework.core.type.classreading.MetadataReader;
 import org.springframework.core.type.classreading.MetadataReaderFactory;
 import org.springframework.core.type.filter.TypeFilter;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 @SpringBootApplication
 public class XmobotscaseApplication {
@@ -26,6 +27,11 @@ public class XmobotscaseApplication {
 					(BeanDefinitionRegistry) ((AnnotationConfigServletWebServerApplicationContext) beanRegistry)
 							.getBeanFactory());
 		};
+	}
+
+	@Bean
+	BCryptPasswordEncoder bCryptPasswordEncoder() {
+		return new BCryptPasswordEncoder();
 	}
 
 	void genericApplicationContext(BeanDefinitionRegistry beanRegistry) {

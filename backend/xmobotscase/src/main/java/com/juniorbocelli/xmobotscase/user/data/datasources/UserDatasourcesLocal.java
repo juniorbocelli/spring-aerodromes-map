@@ -12,4 +12,6 @@ public interface UserDatasourcesLocal {
     public UserModel getUser(Long id);
 
     public List<UserModel> getUsers();
+
+    UserModel findByUsername(String username);
 }

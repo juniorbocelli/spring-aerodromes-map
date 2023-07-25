@@ -7,7 +7,6 @@ public class UserRequestModel {
     private String name;
     private String email;
     private String password;
-    private String token;
 
     public static User toUser(UserRequestModel userRequestModel) {
         User user = new User();
@@ -15,7 +14,6 @@ public class UserRequestModel {
         user.setName(userRequestModel.getName());
         user.setEmail(userRequestModel.getEmail());
         user.setPassword(userRequestModel.getPassword());
-        user.setToken(userRequestModel.getToken());
 
         return user;
     }
@@ -51,13 +49,4 @@ public class UserRequestModel {
     public void setPassword(String password) {
         this.password = password;
     }
-
-    public String getToken() {
-        return token;
-    }
-
-    public void setToken(String token) {
-        this.token = token;
-    };
-
 }

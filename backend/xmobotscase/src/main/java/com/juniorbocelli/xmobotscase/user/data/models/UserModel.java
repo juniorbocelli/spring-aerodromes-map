@@ -23,8 +23,6 @@ public class UserModel {
     @Column(name = "email", nullable = false, length = 100)
     private String email;
 
-    private String username;
-
     @Column(name = "password", nullable = false, length = 32)
     private String password;
 
@@ -34,8 +32,6 @@ public class UserModel {
         this.name = name;
         this.email = email;
         this.password = password;
-
-        this.username = email;
     }
 
     public UserModel() {
@@ -104,13 +100,5 @@ public class UserModel {
 
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
     }
 }

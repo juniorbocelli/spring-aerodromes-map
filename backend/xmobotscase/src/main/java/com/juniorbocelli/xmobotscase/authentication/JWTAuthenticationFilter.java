@@ -4,26 +4,37 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.juniorbocelli.xmobotscase.core.security.config.SecurityConstants;
+import com.juniorbocelli.xmobotscase.user.data.datasources.impl.UserDatasourcesLocalImpl;
 import com.juniorbocelli.xmobotscase.user.data.models.UserModel;
 
 import jakarta.servlet.FilterChain;
+import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
+@Component
 public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
-    private AuthenticationManager authenticationManager = new CustomAuthenticationManager();
+    @Autowired
+    private CustomAuthenticationManager customAuthenticationManager;
 
-    public JWTAuthenticationFilter() {
+    public JWTAuthenticationFilter(CustomAuthenticationManager customAuthenticationManager) {
+        super(customAuthenticationManager);
+        this.customAuthenticationManager = customAuthenticationManager;
         setFilterProcessesUrl("/api/user/login");
     }
 
@@ -34,11 +45,12 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
             UserModel creds = new ObjectMapper()
                     .readValue(req.getInputStream(), UserModel.class);
 
-            return authenticationManager.authenticate(
+            return customAuthenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(
                             creds.getEmail(),
                             creds.getPassword(),
                             new ArrayList<>()));
+
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -58,5 +70,19 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 
         res.getWriter().write(body);
         res.getWriter().flush();
+    }
+
+    @Override
+    protected void unsuccessfulAuthentication(HttpServletRequest request, HttpServletResponse response,
+            AuthenticationException failed) throws IOException, ServletException {
+        try {
+            String body = failed.getMessage();
+
+            response.setHeader("Content-Type", "application/json;charset=utf-8");
+            response.getWriter().print("{\"code\":401,\"message\":" + "\"" + body + "\"}");
+            response.getWriter().flush();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

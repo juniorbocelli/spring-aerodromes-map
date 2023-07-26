@@ -6,20 +6,29 @@ import java.util.ArrayList;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
+import org.springframework.stereotype.Component;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.juniorbocelli.xmobotscase.core.security.config.SecurityConstants;
+import com.juniorbocelli.xmobotscase.user.data.datasources.impl.UserDatasourcesLocalImpl;
 
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
+@Component
 public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
-    public JWTAuthorizationFilter() {
-        super(new CustomAuthenticationManager());
+    public UserDatasourcesLocalImpl userDatasourcesLocalImpl;
+    public BCryptPasswordEncoder bCryptPasswordEncoder;
+    public CustomAuthenticationManager customAuthenticationManager;
+
+    public JWTAuthorizationFilter(UserDatasourcesLocalImpl userDatasourcesLocalImpl,
+            BCryptPasswordEncoder bCryptPasswordEncoder) {
+        super(new CustomAuthenticationManager(userDatasourcesLocalImpl, bCryptPasswordEncoder));
     }
 
     @Override

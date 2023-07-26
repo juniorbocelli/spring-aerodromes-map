@@ -4,10 +4,12 @@ import static org.springframework.security.config.Customizer.withDefaults;
 
 import java.util.Arrays;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
@@ -19,15 +21,21 @@ import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import com.juniorbocelli.xmobotscase.core.security.config.SecurityConstants;
+import com.juniorbocelli.xmobotscase.user.data.datasources.impl.UserDatasourcesLocalImpl;
 
-@EnableWebSecurity
 @Configuration
+@EnableWebSecurity
+@EnableMethodSecurity(prePostEnabled = true)
 public class WebSecurityFilter {
-
     private AuthenticationManager authenticationManager;
+    private JWTAuthenticationFilter jwtAuthenticationFilter;
+    private JWTAuthorizationFilter jwtAuthorizationFilter;
 
-    public WebSecurityFilter(UserDetailsService userService, BCryptPasswordEncoder bCryptPasswordEncoder) {
-        this.authenticationManager = new CustomAuthenticationManager();
+    public WebSecurityFilter(AuthenticationManager authenticationManager,
+            JWTAuthenticationFilter jwtAuthenticationFilter, JWTAuthorizationFilter jwtAuthorizationFilter) {
+        this.authenticationManager = authenticationManager;
+        this.jwtAuthenticationFilter = jwtAuthenticationFilter;
+        this.jwtAuthorizationFilter = jwtAuthorizationFilter;
     }
 
     @Bean
@@ -38,8 +46,8 @@ public class WebSecurityFilter {
                 .authorizeHttpRequests((authz) -> authz
                         .requestMatchers(HttpMethod.POST, SecurityConstants.SIGN_UP_URL).permitAll()
                         .anyRequest().authenticated())
-                .addFilter(new JWTAuthenticationFilter())
-                .addFilter(new JWTAuthorizationFilter())
+                .addFilter(jwtAuthenticationFilter)
+                .addFilter(jwtAuthorizationFilter)
                 .authenticationManager(authenticationManager)
                 .sessionManagement((session) -> session
                         .sessionCreationPolicy(SessionCreationPolicy.STATELESS));

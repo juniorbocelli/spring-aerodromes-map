@@ -34,6 +34,7 @@ public class CustomAuthenticationManager implements AuthenticationManager {
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
         UserModel user = userDatasourcesLocalImpl.findByUsername(authentication.getName());
+
         if (user != null) {
             if (bCryptPasswordEncoder.matches(authentication.getCredentials().toString(), user.getPassword())) {
                 List<GrantedAuthority> grantedAuthorityList = new ArrayList<>();

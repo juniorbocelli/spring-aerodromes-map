@@ -19,7 +19,7 @@ public class RunwayController {
         this.createRunway = createRunway;
     }
 
-    @PostMapping(path = "runway", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(path = "api/runway", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<RunwayResponseModel> create(@RequestBody RunwayRequestModel runwayRequestModel) {
         try {
             this.createRunway.call(RunwayRequestModel.toRunway(runwayRequestModel));

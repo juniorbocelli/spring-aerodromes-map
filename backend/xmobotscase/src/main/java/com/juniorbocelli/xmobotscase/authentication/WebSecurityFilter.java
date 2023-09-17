@@ -45,6 +45,7 @@ public class WebSecurityFilter {
                 .csrf((csrf) -> csrf.disable())
                 .authorizeHttpRequests((authz) -> authz
                         .requestMatchers(HttpMethod.POST, SecurityConstants.SIGN_UP_URL).permitAll()
+                        .requestMatchers(HttpMethod.POST, SecurityConstants.LOGIN_URL).permitAll()
                         .anyRequest().authenticated())
                 .addFilter(jwtAuthenticationFilter)
                 .addFilter(jwtAuthorizationFilter)

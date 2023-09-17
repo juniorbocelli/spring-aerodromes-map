@@ -41,10 +41,13 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 
         details.add(builder.toString());
 
-        ApiError err = new ApiError(LocalDateTime.now(), HttpStatus.BAD_REQUEST, "Invalid JSON", details);
+        ApiError err = new ApiError();
+        err.setTimestamp(LocalDateTime.now());
+        err.setStatus(HttpStatus.BAD_REQUEST);
+        err.setMessage("Invalid JSON");
+        err.setErrors(details);
 
         return ResponseEntityBuilder.build(err);
-
     }
 
     // handleHttpMessageNotReadable : triggers when the JSON is malformed
@@ -55,7 +58,11 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         List<String> details = new ArrayList<String>();
         details.add(ex.getMessage());
 
-        ApiError err = new ApiError(LocalDateTime.now(), HttpStatus.BAD_REQUEST, "Malformed JSON request", details);
+        ApiError err = new ApiError();
+        err.setTimestamp(LocalDateTime.now());
+        err.setStatus(HttpStatus.BAD_REQUEST);
+        err.setMessage("Malformed JSON request");
+        err.setErrors(details);
 
         return ResponseEntityBuilder.build(err);
     }
@@ -72,10 +79,11 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
                 .map(error -> error.getObjectName() + " : " + error.getDefaultMessage())
                 .collect(Collectors.toList());
 
-        ApiError err = new ApiError(LocalDateTime.now(),
-                HttpStatus.BAD_REQUEST,
-                "Validation Errors",
-                details);
+        ApiError err = new ApiError();
+        err.setTimestamp(LocalDateTime.now());
+        err.setStatus(HttpStatus.BAD_REQUEST);
+        err.setMessage("Validation Errors");
+        err.setErrors(details);
 
         return ResponseEntityBuilder.build(err);
     }
@@ -90,7 +98,11 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         List<String> details = new ArrayList<String>();
         details.add(ex.getParameterName() + " parameter is missing");
 
-        ApiError err = new ApiError(LocalDateTime.now(), HttpStatus.BAD_REQUEST, "Missing Parameters", details);
+        ApiError err = new ApiError();
+        err.setTimestamp(LocalDateTime.now());
+        err.setStatus(HttpStatus.BAD_REQUEST);
+        err.setMessage("Missing Parameters");
+        err.setErrors(details);
 
         return ResponseEntityBuilder.build(err);
     }
@@ -103,7 +115,11 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         List<String> details = new ArrayList<String>();
         details.add(ex.getMessage());
 
-        ApiError err = new ApiError(LocalDateTime.now(), HttpStatus.BAD_REQUEST, "Mismatch Type", details);
+        ApiError err = new ApiError();
+        err.setTimestamp(LocalDateTime.now());
+        err.setStatus(HttpStatus.BAD_REQUEST);
+        err.setMessage("Mismatch Type");
+        err.setErrors(details);
 
         return ResponseEntityBuilder.build(err);
     }
@@ -115,7 +131,11 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         List<String> details = new ArrayList<String>();
         details.add(ex.getMessage());
 
-        ApiError err = new ApiError(LocalDateTime.now(), HttpStatus.BAD_REQUEST, "Constraint Violation", details);
+        ApiError err = new ApiError();
+        err.setTimestamp(LocalDateTime.now());
+        err.setStatus(HttpStatus.BAD_REQUEST);
+        err.setMessage("Constraint Violation");
+        err.setErrors(details);
 
         return ResponseEntityBuilder.build(err);
     }
@@ -128,7 +148,11 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         List<String> details = new ArrayList<String>();
         details.add(ex.getMessage());
 
-        ApiError err = new ApiError(LocalDateTime.now(), HttpStatus.NOT_FOUND, "Resource Not Found", details);
+        ApiError err = new ApiError();
+        err.setTimestamp(LocalDateTime.now());
+        err.setStatus(HttpStatus.NOT_FOUND);
+        err.setMessage("Resource Not Found");
+        err.setErrors(details);
 
         return ResponseEntityBuilder.build(err);
     }
@@ -141,7 +165,11 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         List<String> details = new ArrayList<String>();
         details.add(String.format("Could not find the %s method for URL %s", ex.getHttpMethod(), ex.getRequestURL()));
 
-        ApiError err = new ApiError(LocalDateTime.now(), HttpStatus.BAD_REQUEST, "Method Not Found", details);
+        ApiError err = new ApiError();
+        err.setTimestamp(LocalDateTime.now());
+        err.setStatus(HttpStatus.BAD_REQUEST);
+        err.setMessage("Method Not Found");
+        err.setErrors(details);
 
         return ResponseEntityBuilder.build(err);
 
@@ -153,7 +181,11 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         List<String> details = new ArrayList<String>();
         details.add(ex.getLocalizedMessage());
 
-        ApiError err = new ApiError(LocalDateTime.now(), HttpStatus.BAD_REQUEST, "Error occurred", details);
+        ApiError err = new ApiError();
+        err.setTimestamp(LocalDateTime.now());
+        err.setStatus(HttpStatus.BAD_REQUEST);
+        err.setMessage("Error occurred");
+        err.setErrors(details);
 
         return ResponseEntityBuilder.build(err);
 

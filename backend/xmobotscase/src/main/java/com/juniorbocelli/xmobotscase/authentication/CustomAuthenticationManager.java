@@ -3,9 +3,6 @@ package com.juniorbocelli.xmobotscase.authentication;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -14,9 +11,7 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
 
-import com.juniorbocelli.xmobotscase.user.data.datasources.JpaUserRepository;
 import com.juniorbocelli.xmobotscase.user.data.datasources.impl.UserDatasourcesLocalImpl;
 import com.juniorbocelli.xmobotscase.user.data.models.UserModel;
 

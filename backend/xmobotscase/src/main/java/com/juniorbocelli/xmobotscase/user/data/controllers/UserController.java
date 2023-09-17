@@ -28,24 +28,18 @@ public class UserController {
 
     @PostMapping(path = "api/user", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<UserResponseModel> create(@RequestBody UserRequestModel userRequestModel) {
-        try {
-            this.createUser.call(UserRequestModel.toUser(userRequestModel));
+        this.createUser.call(UserRequestModel.toUser(userRequestModel));
 
-            return new ResponseEntity<UserResponseModel>(
-                    new UserResponseModel(), HttpStatus.OK);
-        } catch (Exception e) {
-            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-        }
+        return new ResponseEntity<UserResponseModel>(
+                new UserResponseModel(), HttpStatus.OK);
+
     }
 
     @GetMapping(path = "api/user")
     public ResponseEntity<List<UserResponseModel>> getUsers() {
-        try {
-            List<User> users = this.getUsers.call();
-            
-            return new ResponseEntity<List<UserResponseModel>>(UserResponseModel.toUserResponseModelList(users), HttpStatus.OK);
-        } catch (Exception e) {
-            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-        }
+        List<User> users = this.getUsers.call();
+
+        return new ResponseEntity<List<UserResponseModel>>(UserResponseModel.toUserResponseModelList(users),
+                HttpStatus.OK);
     }
 }

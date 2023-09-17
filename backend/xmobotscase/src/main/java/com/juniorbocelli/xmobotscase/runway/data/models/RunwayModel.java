@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import com.juniorbocelli.xmobotscase.aerodrome.data.models.AerodromeModel;
-import com.juniorbocelli.xmobotscase.aerodrome.domain.entities.Aerodrome;
 import com.juniorbocelli.xmobotscase.runway.domain.entities.Runway;
 
 import jakarta.persistence.Column;

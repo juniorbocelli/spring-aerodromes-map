@@ -176,7 +176,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
     }
 
     @ExceptionHandler({ Exception.class })
-    public ResponseEntity<Object> handleAll(Exception ex, WebRequest request) {
+    public static ResponseEntity<Object> handleAll(Exception ex, WebRequest request) {
 
         List<String> details = new ArrayList<String>();
         details.add(ex.getLocalizedMessage());

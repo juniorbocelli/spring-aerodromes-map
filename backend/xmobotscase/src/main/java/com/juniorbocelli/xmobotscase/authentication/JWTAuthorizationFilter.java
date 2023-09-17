@@ -3,7 +3,6 @@ package com.juniorbocelli.xmobotscase.authentication;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;

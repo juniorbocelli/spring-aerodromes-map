@@ -17,6 +17,7 @@ export interface IUseDashboardStates {
  */
 export interface IUseDashboardAPIs {
   getAllAerodromes: () => void;
+  newFromUpload: (file: FormData) => void;
 };
 
 

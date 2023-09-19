@@ -30,7 +30,7 @@ function useAuthAPIs(states: IAuthStates): IUseAuthAPI {
         email: user.email,
       });
 
-      LocalStorage.setToken(user.token || LocalStorage.getDefaultToken());
+      LocalStorage.setToken(`Bearer ${user.token}` || LocalStorage.getDefaultToken());
       LocalStorage.setId(typeof user.id !== 'undefined' ? String(user.id) : LocalStorage.getDefaultId());
     } else {
       throw new Error("Informações de login incompletas ou usuário desativado");

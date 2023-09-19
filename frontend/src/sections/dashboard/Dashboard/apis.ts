@@ -9,7 +9,8 @@ import {
 } from 'src/sections/dashboard/Dashboard/types'
 // services
 import {
-  getAllAerodromesAPI
+  getAllAerodromesAPI,
+  newFromUploadAPI,
 } from 'src/services/aerodrome';
 // contexts
 import { useFeedbackContext } from 'src/hooks/feedbacks';
@@ -42,7 +43,24 @@ export default function useDashboardAPIs(states: IUseDashboardStates): IUseDashb
       });
   };
 
+  const newFromUpload = (file: FormData) => {
+    setIsQueryingAPI(true);
+
+    newFromUploadAPI(file)
+      .then(response => {
+        if (process.env.NODE_ENV === 'development')
+          console.log('Response -> newFromUploadAPI', response);
+      })
+      .catch((error: AxiosError<IAxiosExceptionData>) => {
+        setErrorMessageFromAxiosError(error);
+      })
+      .finally(() => {
+        setIsQueryingAPI(false);
+      });
+  };
+
   return {
     getAllAerodromes,
+    newFromUpload,
   };
 };

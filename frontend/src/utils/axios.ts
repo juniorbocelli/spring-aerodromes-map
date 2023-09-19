@@ -12,7 +12,7 @@ const apiAxios = axios
     baseURL: `${SERVER_HOST_API}:${SERVER_HOST_PORT}`,
     headers: {
       'Content-Type': 'application/json',
-      'Authorization': `Bearer ${LocalStorage.getToken()}`,
+      'Authorization': LocalStorage.getToken(),
     },
     timeout: 30000,
   });

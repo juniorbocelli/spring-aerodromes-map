@@ -24,7 +24,6 @@ import { useDashboardContext } from 'src/sections/dashboard/Dashboard/context';
 import { useFeedbackContext } from 'src/hooks/feedbacks';
 //
 import Strings from 'src/shared/strings';
-import uuidv4 from 'src/utils/uuidv4';
 
 // ----------------------------------------------------------------------
 
@@ -32,14 +31,10 @@ interface IDashboardProps {
   sx?: SxProps<Theme>;
 };
 
-type FormValuesProps = {
-  name: string;
-};
-
 const Dashboard: React.FC<IDashboardProps> = ({ sx }) => {
   const context = useDashboardContext();
   const { useComponentDidMount } = context.effects;
-  const { getAllAerodromes } = context.apis;
+  const { getAllAerodromes, newFromUpload } = context.apis;
   const { aerodromes } = context.states;
 
   const { states: feebackStates } = useFeedbackContext();
@@ -61,9 +56,10 @@ const Dashboard: React.FC<IDashboardProps> = ({ sx }) => {
           setOpen(false);
           getAllAerodromes();
         }}
+        onSubmitForm={newFromUpload}
       />
 
-      <Button onClick={handleButtonClick}>
+      <Button onClick={handleButtonClick} size="small">
         Adicionar aerodromes
       </Button>
 

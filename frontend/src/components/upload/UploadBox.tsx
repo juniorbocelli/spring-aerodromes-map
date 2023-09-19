@@ -1,10 +1,13 @@
+import React from 'react';
 import { useDropzone } from 'react-dropzone';
 // @mui
 import { styled, alpha } from '@mui/material/styles';
 //
+import uuidv4 from 'src/utils/uuidv4';
 import { Iconify } from '../iconify';
 //
 import { UploadProps } from './types';
+
 
 // ----------------------------------------------------------------------
 
@@ -29,36 +32,69 @@ const StyledDropZone = styled('div')(({ theme }) => ({
 
 // ----------------------------------------------------------------------
 
-export default function UploadBox({ placeholder, error, disabled, mimeType, sx, ...other }: UploadProps) {
-  const { getRootProps, getInputProps, isDragActive, isDragReject } = useDropzone({
+export default function UploadBox({
+  placeholder,
+  error,
+  disabled,
+  multiple = false,
+  showFilesList,
+  file,
+  files,
+  onUpload,
+  sx,
+  ...other }: UploadProps) {
+  const { getRootProps, getInputProps, isDragActive, isDragReject, acceptedFiles, fileRejections } = useDropzone({
+    multiple,
     disabled,
     ...other,
   });
 
+  const hasFile = !!file && !multiple;
+
+  const hasFiles = files && multiple && files.length > 0;
+
   const isError = isDragReject || error;
 
-  return (
-    <StyledDropZone
-      {...getRootProps()}
-      sx={{
-        ...(isDragActive && {
-          opacity: 0.72,
-        }),
-        ...(isError && {
-          color: 'error.main',
-          bgcolor: 'error.lighter',
-          borderColor: 'error.light',
-        }),
-        ...(disabled && {
-          opacity: 0.48,
-          pointerEvents: 'none',
-        }),
-        ...sx,
-      }}
-    >
-      <input {...getInputProps()} accept={typeof mimeType !== 'undefined' ? mimeType : getInputProps().accept} />
+  const FilesList = React.useMemo(() => (
+    <ul>
+      {files?.map((f) => <li key={uuidv4()}>{f instanceof File ? `${f.name} ${f.size}` : f}</li>)}
+    </ul>
 
-      {placeholder || <Iconify icon="eva:cloud-upload-fill" width={28} />}
-    </StyledDropZone>
+
+  ), [files]);
+
+  return (
+    <>
+      <StyledDropZone
+        {...getRootProps()}
+        sx={{
+          ...(isDragActive && {
+            opacity: 0.72,
+          }),
+          ...(isError && {
+            color: 'error.main',
+            bgcolor: 'error.lighter',
+            borderColor: 'error.light',
+          }),
+          ...(disabled && {
+            opacity: 0.48,
+            pointerEvents: 'none',
+          }),
+          ...sx,
+        }}
+      >
+        <input {...getInputProps()} />
+
+        {placeholder || <Iconify icon="eva:cloud-upload-fill" width={28} />}
+      </StyledDropZone>
+
+      {showFilesList && hasFiles ? FilesList : null}
+      {showFilesList && hasFile ?
+        (
+          <ul>
+            <li key={uuidv4()}>{file instanceof File ? `${file.name} - ${file.size} bytes` : file}</li>
+          </ul>
+        ) : null}
+    </>
   );
 }

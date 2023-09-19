@@ -28,5 +28,4 @@ export interface UploadProps extends DropzoneOptions {
   onRemoveAll?: VoidFunction;
   //
   showFilesList?: boolean;
-  mimeType?: string;
 }

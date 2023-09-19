@@ -83,32 +83,31 @@ export default function Navigator(props: INavigatorProps) {
     <>
       {
         categories.map(({ id, exclude, children }) => (
-          auth.loggedUser && exclude.indexOf(auth.loggedUser.type as number) === -1 ?
-            <Box key={id} sx={{ bgcolor: '#101F33' }}>
-              <ListItem sx={{ py: 2, px: 3 }}>
-                <ListItemText sx={{ color: '#fff' }}>{id}</ListItemText>
-              </ListItem>
-              {children.map(({ id: childId, icon, menuName, url }) => (
-                <ListItem disablePadding key={`${id}-${childId}`}>
-                  <ListItemButton
-                    selected={menuName === activeMenu}
-                    onClick={() => navigate(url || '#')}
-                    disabled={url === '#' && menuName !== activeMenu}
+          <Box key={id} sx={{ bgcolor: '#101F33' }}>
+            <ListItem sx={{ py: 2, px: 3 }}>
+              <ListItemText sx={{ color: '#fff' }}>{id}</ListItemText>
+            </ListItem>
+            {children.map(({ id: childId, icon, menuName, url }) => (
+              <ListItem disablePadding key={`${id}-${childId}`}>
+                <ListItemButton
+                  selected={menuName === activeMenu}
+                  onClick={() => navigate(url || '#')}
+                  disabled={url === '#' && menuName !== activeMenu}
 
-                    sx={item}
-                  >
-                    <ListItemIcon>{icon}</ListItemIcon>
-                    <ListItemText>{childId}</ListItemText>
-                  </ListItemButton>
-                </ListItem>
-              ))}
-              <Divider sx={{ mt: 2 }} />
-            </Box>
-            : null
+                  sx={item}
+                >
+                  <ListItemIcon>{icon}</ListItemIcon>
+                  <ListItemText>{childId}</ListItemText>
+                </ListItemButton>
+              </ListItem>
+            ))}
+            <Divider sx={{ mt: 2 }} />
+          </Box>
+
         ))
       }
     </>
-  ), [activeMenu, auth.loggedUser, navigate]);
+  ), [activeMenu, navigate]);
 
   return (
     <Drawer variant="permanent" {...other}>

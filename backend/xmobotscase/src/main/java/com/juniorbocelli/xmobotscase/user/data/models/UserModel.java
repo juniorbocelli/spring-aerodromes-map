@@ -20,10 +20,10 @@ public class UserModel {
     private Long id;
     @Column(name = "name", nullable = false, length = 100)
     private String name;
-    @Column(name = "email", nullable = false, length = 100)
+    @Column(name = "email", nullable = false, length = 100, unique = true)
     private String email;
 
-    @Column(name = "password", nullable = false, length = 32)
+    @Column(name = "password", nullable = false, length = 60)
     private String password;
 
     public UserModel(Long id, String name, String email, String password) {
@@ -100,5 +100,12 @@ public class UserModel {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    @Override
+    public String toString() {
+        return "{\"id\": " + this.id + ", \"name\": " + "\"" + this.name + "\"" + ", \"email\": " + "\"" + this.email
+                + "\""
+                + ", \"password\": " + "\"" + this.password + "\"" + "}";
     }
 }

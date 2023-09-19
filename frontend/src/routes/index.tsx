@@ -15,8 +15,8 @@ import {
   // User
   RegisterPage,
 
-  // City
-  ManageCitiesPage,
+  // Dashboard
+  Dashboard,
 
 } from 'src/routes/elements';
 
@@ -67,7 +67,7 @@ export default function Router() {
       ),
       children: [
         { element: <Navigate to={PATH_AFTER_LOGIN} replace />, index: true },
-        { path: Paths.PATH_DASHBOARD.home, element: <ManageCitiesPage /> },
+        { path: Paths.PATH_DASHBOARD.home, element: <Dashboard /> },
       ],
     },
   ])

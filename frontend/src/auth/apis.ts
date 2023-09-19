@@ -8,7 +8,7 @@ import {
   logoutAPI,
 } from 'src/services/auth';
 // Types and interfaces
-import { IUser } from 'src/@types/user';
+import { IUserWithToken } from 'src/@types/user';
 import { IAuthStates, } from 'src/auth/types';
 // Others imports
 import LocalStorage from 'src/utils/localStorage';
@@ -22,17 +22,16 @@ export interface IUseAuthAPI {
 
 // APIs =============================================================================================================================================
 function useAuthAPIs(states: IAuthStates): IUseAuthAPI {
-  const setLogged = (user: IUser) => {
+  const setLogged = (user: IUserWithToken) => {
     if (typeof user.id !== "undefined" && typeof user.token !== "undefined") {
       states.setLoggedUser({
         id: user.id,
         name: user.name,
         email: user.email,
-
-        token: user.token,
       });
 
-      LocalStorage.setToken(user.token || 'not_auth');
+      LocalStorage.setToken(user.token || LocalStorage.getDefaultToken());
+      LocalStorage.setId(typeof user.id !== 'undefined' ? String(user.id) : LocalStorage.getDefaultId());
     } else {
       throw new Error("Informações de login incompletas ou usuário desativado");
     };
@@ -40,7 +39,8 @@ function useAuthAPIs(states: IAuthStates): IUseAuthAPI {
 
   const setNotLogged = () => {
     states.setLoggedUser(null);
-    LocalStorage.clearToken();
+    LocalStorage.setTokenAsDefault();
+    LocalStorage.setIdAsDefault();
   };
 
   const login = (username: string, password: string) => {
@@ -97,14 +97,14 @@ function useAuthAPIs(states: IAuthStates): IUseAuthAPI {
 
     states.setLoggedUser(undefined);
 
-    checkSessionAPI()
+    checkSessionAPI(Number(LocalStorage.getId()))
       .then(response => {
         // Verify if user exist
         if (SanitizerString.stringOrNull(response.data.email) !== null) {
           const user = response.data;
 
           // Set loggedIn routines
-          setLogged(user);
+          states.setLoggedUser(user);
         };
       })
       .catch((error: AxiosError<IAxiosExceptionData>) => {

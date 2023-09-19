@@ -26,4 +26,4 @@ export const RegisterPage = Loadable(lazy(() => import('../pages/auth/RegisterPa
 /**
  * City
  */
-export const ManageCitiesPage = Loadable(lazy(() => import('../pages/city/ManageCitiesPage')));
+export const Dashboard = Loadable(lazy(() => import('../pages/city/Dashboard')));

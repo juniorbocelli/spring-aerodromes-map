@@ -37,27 +37,19 @@ public class AerodromeController {
 
     @PostMapping(path = "api/aerodrome", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<AerodromeResponseModel> create(@RequestBody AerodromeRequestModel aerodromeRequestModel) {
-        try {
-            System.out.println(AerodromeRequestModel.toAerodrome(aerodromeRequestModel).getDms());
-            this.createAerodrome.call(AerodromeRequestModel.toAerodrome(aerodromeRequestModel));
+        System.out.println(AerodromeRequestModel.toAerodrome(aerodromeRequestModel).getDms());
+        this.createAerodrome.call(AerodromeRequestModel.toAerodrome(aerodromeRequestModel));
 
-            return new ResponseEntity<AerodromeResponseModel>(
-                    new AerodromeResponseModel(HttpStatus.OK.value(), HttpStatus.OK.name()), HttpStatus.OK);
-        } catch (Exception e) {
-            return new ResponseEntity<AerodromeResponseModel>(
-                    new AerodromeResponseModel(HttpStatus.BAD_REQUEST.value(), e.getMessage()), HttpStatus.BAD_REQUEST);
-        }
+        return new ResponseEntity<AerodromeResponseModel>(
+                new AerodromeResponseModel(HttpStatus.OK.value(), HttpStatus.OK.name()), HttpStatus.OK);
     }
 
     @GetMapping(path = "api/aerodrome")
     public ResponseEntity<List<Aerodrome>> getAerodromes() {
-        try {
-            List<Aerodrome> aerodromes = this.getAerodromes.call();
 
-            return new ResponseEntity<List<Aerodrome>>(aerodromes, HttpStatus.OK);
-        } catch (Exception e) {
-            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-        }
+        List<Aerodrome> aerodromes = this.getAerodromes.call();
+
+        return new ResponseEntity<List<Aerodrome>>(aerodromes, HttpStatus.OK);
     }
 
     @PostMapping(path = "api/aerodrome/upload", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
@@ -70,7 +62,7 @@ public class AerodromeController {
             return new ResponseEntity<AerodromeResponseModel>(
                     new AerodromeResponseModel(HttpStatus.OK.value(), HttpStatus.OK.name()), HttpStatus.OK);
         } catch (Exception e) {
-            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+            throw new RuntimeException(e);
         }
     }
 }

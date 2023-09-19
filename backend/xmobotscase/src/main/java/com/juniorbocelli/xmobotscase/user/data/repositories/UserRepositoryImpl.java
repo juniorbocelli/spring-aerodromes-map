@@ -2,6 +2,8 @@ package com.juniorbocelli.xmobotscase.user.data.repositories;
 
 import java.util.List;
 
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+
 import com.juniorbocelli.xmobotscase.user.data.datasources.UserDatasourcesLocal;
 import com.juniorbocelli.xmobotscase.user.data.models.UserModel;
 import com.juniorbocelli.xmobotscase.user.domain.entities.User;
@@ -9,6 +11,7 @@ import com.juniorbocelli.xmobotscase.user.domain.repositories.UserRepository;
 
 public class UserRepositoryImpl implements UserRepository {
     final UserDatasourcesLocal userDatasourcesLocal;
+    final BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
 
     public UserRepositoryImpl(UserDatasourcesLocal userDatasourcesLocal) {
         this.userDatasourcesLocal = userDatasourcesLocal;
@@ -16,6 +19,7 @@ public class UserRepositoryImpl implements UserRepository {
 
     public void createUser(User user) {
         UserModel userModel = new UserModel();
+        user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         this.userDatasourcesLocal.createUser(userModel.toUserModel(user));
     }
 

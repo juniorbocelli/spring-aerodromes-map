@@ -5,17 +5,15 @@ import {
   useMediaQuery,
   CssBaseline,
 } from '@mui/material';
-import { useNavigate, Outlet } from 'react-router-dom';
+import { Outlet } from 'react-router-dom';
 
 // components
 import { BackDrop } from 'src/components/back-drop';
 import { AlertDialog } from 'src/components/modal-dialog';
 // contexts
-import { useAuthContext } from 'src/auth/context';
 import { useFeedbackContext } from 'src/hooks/feedbacks';
 //
 import Strings from 'src/shared/strings';
-import * as Paths from 'src/routes/paths';
 // internal components
 import Navigator from './components/Navigator';
 import Header from './components/Header';
@@ -41,9 +39,7 @@ const Dashboard: React.FC<IDashboardProps> = ({ title, activeMenu, pageTitle, ex
   const theme = useTheme();
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const isSmUp = useMediaQuery(theme.breakpoints.up('sm'));
-  const navigate = useNavigate();
 
-  const auth = useAuthContext();
   const { states: fatherStates } = useFeedbackContext();
 
   const handleDrawerToggle = () => {
@@ -57,14 +53,6 @@ const Dashboard: React.FC<IDashboardProps> = ({ title, activeMenu, pageTitle, ex
     else
       document.title = `${Strings.Page.PAGE_TITLE_COMPANY_NAME}`;
   }, [pageTitle]);
-
-  // Redirect to Dashboard when use have not permission
-  React.useEffect(() => {
-    if (typeof exludeList !== "undefined")
-      if (auth.loggedUser)
-        if (exludeList.indexOf(auth.loggedUser.type as number) !== -1)
-          navigate(Paths.PATH_DASHBOARD.home);
-  }, [auth.loggedUser, navigate, exludeList]);
 
   // Memos
   const Feedbacks = React.useMemo(() => {

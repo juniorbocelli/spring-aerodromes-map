@@ -34,7 +34,7 @@ public class CustomAuthenticationManager implements AuthenticationManager {
             if (bCryptPasswordEncoder.matches(authentication.getCredentials().toString(), user.getPassword())) {
                 List<GrantedAuthority> grantedAuthorityList = new ArrayList<>();
 
-                return new UsernamePasswordAuthenticationToken(((UserModel) authentication.getPrincipal()).getEmail(),
+                return new UsernamePasswordAuthenticationToken(authentication.getName(),
                         authentication.getCredentials(), grantedAuthorityList);
             } else {
                 throw new BadCredentialsException("Senha inválida");

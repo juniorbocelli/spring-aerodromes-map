@@ -2,6 +2,8 @@ import axios from 'axios';
 
 // config
 import { SERVER_HOST_API, SERVER_HOST_PORT } from 'src/config-global';
+//
+import LocalStorage from 'src/utils/localStorage';
 
 // ----------------------------------------------------------------------
 
@@ -10,9 +12,9 @@ const apiAxios = axios
     baseURL: `${SERVER_HOST_API}:${SERVER_HOST_PORT}`,
     headers: {
       'Content-Type': 'application/json',
+      'Authorization': `Bearer ${LocalStorage.getToken()}`,
     },
     timeout: 30000,
-    withCredentials: true
   });
 
 // Response error handling

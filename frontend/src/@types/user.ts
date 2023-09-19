@@ -3,6 +3,8 @@ export interface IUser {
 
   name: string;
   email: string;
-
-  token: string;
 };
+
+export interface IUserWithToken extends IUser {
+  token: string;
+}

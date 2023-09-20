@@ -1,17 +1,16 @@
-import * as React from 'react';
+import HomeIcon from '@mui/icons-material/Home';
+import Box from '@mui/material/Box';
 import Divider from '@mui/material/Divider';
 import Drawer, { DrawerProps } from '@mui/material/Drawer';
 import List from '@mui/material/List';
-import Box from '@mui/material/Box';
 import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
-import HomeIcon from '@mui/icons-material/Home';
+import * as React from 'react';
 import { useNavigate } from 'react-router-dom';
 
 //
-import { useAuthContext } from 'src/auth/context';
 import * as Paths from 'src/routes/paths';
 
 // ----------------------------------------------------------------------
@@ -77,7 +76,6 @@ interface INavigatorProps extends DrawerProps {
 export default function Navigator(props: INavigatorProps) {
   const { activeMenu, ...other } = props;
   const navigate = useNavigate();
-  const auth = useAuthContext();
 
   const Submenus = React.useMemo(() => (
     <>
@@ -113,7 +111,7 @@ export default function Navigator(props: INavigatorProps) {
     <Drawer variant="permanent" {...other}>
       <List disablePadding>
         <ListItem sx={{ ...item, ...itemCategory, fontSize: 20, color: '#fff' }}>
-          NestJs OpenWeather
+          Aerodromes Map
         </ListItem>
         <ListItem sx={{ ...item, ...itemCategory, cursor: 'pointer' }} selected={activeMenu === 'dashboard'} onClick={() => navigate(Paths.PATH_DASHBOARD.home)}>
           <ListItemIcon>

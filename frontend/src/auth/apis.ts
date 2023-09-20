@@ -8,7 +8,7 @@ import {
   logoutAPI,
 } from 'src/services/auth';
 // Types and interfaces
-import { IUserWithToken } from 'src/@types/user';
+import { ILoggedUser } from 'src/@types/user';
 import { IAuthStates, } from 'src/auth/types';
 // Others imports
 import LocalStorage from 'src/utils/localStorage';
@@ -22,16 +22,18 @@ export interface IUseAuthAPI {
 
 // APIs =============================================================================================================================================
 function useAuthAPIs(states: IAuthStates): IUseAuthAPI {
-  const setLogged = (user: IUserWithToken) => {
+  const setLogged = (user: ILoggedUser) => {
     if (typeof user.id !== "undefined" && typeof user.token !== "undefined") {
       states.setLoggedUser({
         id: user.id,
         name: user.name,
         email: user.email,
+        token: user.token
       });
 
       LocalStorage.setToken(`Bearer ${user.token}` || LocalStorage.getDefaultToken());
       LocalStorage.setId(typeof user.id !== 'undefined' ? String(user.id) : LocalStorage.getDefaultId());
+
     } else {
       throw new Error("Informações de login incompletas ou usuário desativado");
     };
@@ -104,7 +106,12 @@ function useAuthAPIs(states: IAuthStates): IUseAuthAPI {
           const user = response.data;
 
           // Set loggedIn routines
-          states.setLoggedUser(user);
+          states.setLoggedUser({
+            id: user.id,
+            name: user.name,
+            email: user.email,
+            token: LocalStorage.getToken(),
+          });
         };
       })
       .catch((error: AxiosError<IAxiosExceptionData>) => {

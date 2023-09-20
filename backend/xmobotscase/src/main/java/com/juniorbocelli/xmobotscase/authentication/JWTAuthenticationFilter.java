@@ -67,11 +67,11 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 
         UserModel userModel = this.userDatasourcesLocalImpl.findByUsername(auth.getName());
 
-        String body = "{\"id\": " + userModel.getId() + ", \"name\": " + "\"" + userModel.getName() + "\""
+        String body = "{ \"id\": " + userModel.getId() + ", \"name\": " + "\"" + userModel.getName() + "\""
                 + ", \"email\": " + "\"" + userModel.getEmail()
                 + "\""
-                + ", \"password\": " + "\"" + userModel.getPassword() + "\"" + ", \"token\": " + "\"" + token + "\""
-                + "}";
+                + ", \"token\": " + "\"" + token + "\""
+                + " }";
 
         res.getWriter().write(body);
         res.getWriter().flush();

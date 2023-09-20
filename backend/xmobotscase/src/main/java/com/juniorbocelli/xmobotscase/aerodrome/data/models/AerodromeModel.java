@@ -63,6 +63,7 @@ public class AerodromeModel {
         aerodrome.setCity(aerodromeModel.getCity());
         aerodrome.setDescription(aerodromeModel.getDescription());
         aerodrome.setDms(aerodromeModel.getDms());
+        aerodrome.setCreatedAt(aerodromeModel.getCreatedAt());
         aerodrome.setRunways(aerodromeModel.getRunways().stream().map(temp -> {
             Runway runway = new Runway();
             runway.setId(temp.getId());
@@ -84,6 +85,7 @@ public class AerodromeModel {
         aerodromeModel.setCity(aerodrome.getCity());
         aerodromeModel.setDescription(aerodrome.getDescription());
         aerodromeModel.setDms(aerodrome.getDms());
+        aerodromeModel.setCreatedAt(aerodrome.getCreatedAt());
         aerodromeModel.setRunways(aerodrome.getRunways().stream().map(temp -> {
             RunwayModel runwayModel = new RunwayModel();
             runwayModel.setId(temp.getId());
@@ -107,6 +109,7 @@ public class AerodromeModel {
             objAerodrome.setCity(temp.getCity());
             objAerodrome.setDescription(temp.getDescription());
             objAerodrome.setDms(temp.getDms());
+            objAerodrome.setCreatedAt(temp.getCreatedAt());
             objAerodrome.setRunways(temp.getRunways().stream().map(obj -> {
                 Runway runway = new Runway();
                 runway.setId(obj.getId());

@@ -11,6 +11,8 @@ import IconButton from '@mui/material/IconButton';
 import SearchIcon from '@mui/icons-material/Search';
 import RefreshIcon from '@mui/icons-material/Refresh';
 
+// ----------------------------------------------------------------------
+
 export default function ContentWithAppBar() {
   return (
     <Paper sx={{ maxWidth: 936, margin: 'auto', overflow: 'hidden' }}>

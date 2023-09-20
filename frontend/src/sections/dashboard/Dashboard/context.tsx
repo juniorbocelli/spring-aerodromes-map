@@ -24,16 +24,25 @@ export const DashboardContextProvider: React.FC<IDashboardContextProviderProps> 
   const {
     aerodromes,
     setAerodromes,
+
+    mapCenter,
+    setMapCenter,
   } = states;
 
   const _states = React.useMemo(() => (
     {
       aerodromes,
       setAerodromes,
+
+      mapCenter,
+      setMapCenter,
     }
   ), [
     aerodromes,
     setAerodromes,
+
+    mapCenter,
+    setMapCenter,
   ]);
 
   /**

@@ -1,11 +1,11 @@
 import axios from 'src/utils/axios';
 import * as Routes from 'src/routes/apis';
-import { IUser, IUserWithToken } from 'src/@types/user';
+import { IUser, ILoggedUser } from 'src/@types/user';
 
 // ----------------------------------------------------------------------
 
 export function loginAPI(email: string, password: string) {
-  return axios.post<IUserWithToken>(Routes.API_AUTH_URL.login,
+  return axios.post<ILoggedUser>(Routes.API_AUTH_URL.login,
     {
       email,
       password,

@@ -4,7 +4,9 @@ export interface IAerodrome {
   name: string;
   city: string;
   description: string;
-  created_at: string;
+  createdAt: string;
+
+  dms: string;
 
   runways: IRunway[];
 }

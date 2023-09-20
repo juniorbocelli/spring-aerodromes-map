@@ -17,7 +17,6 @@ import {
 
   // Dashboard
   Dashboard,
-
 } from 'src/routes/elements';
 
 // ----------------------------------------------------------------------
@@ -59,7 +58,7 @@ export default function Router() {
         <CheckSession>
           <DashboardLayout
             activeMenu='dashboard'
-            title='Cidades'
+            title='Pistas de Pouso de Drones'
 
             pageTitle='Home'
           />

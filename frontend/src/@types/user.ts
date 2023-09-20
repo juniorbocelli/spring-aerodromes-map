@@ -5,6 +5,6 @@ export interface IUser {
   email: string;
 };
 
-export interface IUserWithToken extends IUser {
+export interface ILoggedUser extends IUser {
   token: string;
 }

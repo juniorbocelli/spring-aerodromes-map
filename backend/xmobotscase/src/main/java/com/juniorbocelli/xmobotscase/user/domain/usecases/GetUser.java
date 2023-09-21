@@ -1,7 +1,5 @@
 package com.juniorbocelli.xmobotscase.user.domain.usecases;
 
-import java.util.List;
-
 import com.juniorbocelli.xmobotscase.user.domain.entities.User;
 import com.juniorbocelli.xmobotscase.user.domain.repositories.UserRepository;
 

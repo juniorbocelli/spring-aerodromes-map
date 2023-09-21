@@ -1,4 +1,4 @@
-# Nest OpenWeaher Map
+# Aerodromes Map
 
 Sistema construído usando **Java 17**, **Spring Boot** e Banco de dados **PostgreSQL** no _backend_ e **TypeScript**, **React.js** e **Material-UI 5** no _frontend_. Nele é possível se cadastrar, com um _nome_, _e-mail_ e _password_, e inserir Aerodromes usando um sistema de upload de arquivos _.json_. Após o upload do arquivo esses Aerodromes são renderizados em um mapa.
 
@@ -74,7 +74,7 @@ Ficou faltando desenvolver no frontend alguns recursos que seriam úteis:
 
 ### Como Executar
 
-Para executar o frontend localmente, basta instalar os pacotes e executar o servidor. Os dados para a configuração da comunicação com a API, entre outras, está em _frontend/.env_;
+Para executar o frontend localmente, basta instalar os pacotes e executar o servidor. Os dados para a configuração da comunicação com a API, entre outras, está em _frontend/.env_.
 
 #### 1) Instalação de Pacotes
 

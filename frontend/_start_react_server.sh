@@ -1,7 +1,7 @@
 #!/bin/bash
 
-docker kill nest_open_weather_client_prod
-docker rm nest_open_weather_client_prod
+docker kill aerodromes_map_client_prod
+docker rm aerodromes_map_client_prod
 
-docker run -d --restart=always -p 80:80 --name nest_open_weather_client_prod \
-    nest_open_weather_client_prod
+docker run -d --restart=always -p 80:80 --name aerodromes_map_client_prod \
+    aerodromes_map_client_prod

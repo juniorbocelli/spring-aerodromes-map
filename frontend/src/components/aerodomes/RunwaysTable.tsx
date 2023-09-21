@@ -9,8 +9,8 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 
-// types
-import { IAerodrome } from 'src/@types/aerodrome';
+// @types
+import { IRunway } from 'src/@types/runway';
 //
 import uuidv4 from 'src/utils/uuidv4';
 
@@ -38,33 +38,29 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 
 // ----------------------------------------------------------------------
 
-interface IAerodromesTableProps {
-  aerodromes: IAerodrome[];
+interface IRunwaysTableProps {
+  runways: IRunway[];
   sx?: SxProps;
 };
 
-const AerodromesTable: React.FC<IAerodromesTableProps> = ({ aerodromes, sx }) => (
+const RunwaysTable: React.FC<IRunwaysTableProps> = ({ runways, sx }) => (
   <TableContainer component={Paper}>
-    <Table sx={{ minWidth: 700, ...sx }} aria-label="customized table" size="small">
+    <Table sx={{ ...sx }} aria-label="customized table" size="small">
       <TableHead>
         <TableRow>
-          <StyledTableCell>Nome</StyledTableCell>
-          <StyledTableCell>Cidade</StyledTableCell>
-          <StyledTableCell>DMS</StyledTableCell>
-          <StyledTableCell>Data de Criação</StyledTableCell>
-          <StyledTableCell>Qtd de Pistas</StyledTableCell>
+          <StyledTableCell>Designação</StyledTableCell>
+          <StyledTableCell>Largura (m)</StyledTableCell>
+          <StyledTableCell>Comprimento (m)</StyledTableCell>
         </TableRow>
       </TableHead>
       <TableBody>
-        {aerodromes.map((a) => (
+        {runways.map((r) => (
           <StyledTableRow key={uuidv4()}>
             <StyledTableCell component="th" scope="row">
-              {a.name}
+              {r.designation}
             </StyledTableCell>
-            <StyledTableCell>{a.city}</StyledTableCell>
-            <StyledTableCell>{a.dms}</StyledTableCell>
-            <StyledTableCell>{a.createdAt}</StyledTableCell>
-            <StyledTableCell>{a.runways.length}</StyledTableCell>
+            <StyledTableCell>{r.width}</StyledTableCell>
+            <StyledTableCell>{r.length}</StyledTableCell>
           </StyledTableRow>
         ))}
       </TableBody>
@@ -72,4 +68,4 @@ const AerodromesTable: React.FC<IAerodromesTableProps> = ({ aerodromes, sx }) =>
   </TableContainer>
 );
 
-export default AerodromesTable;
+export default RunwaysTable;

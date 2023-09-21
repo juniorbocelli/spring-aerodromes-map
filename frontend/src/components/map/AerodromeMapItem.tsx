@@ -2,6 +2,8 @@ import React from 'react';
 // map
 import { Circle, Tooltip } from 'react-leaflet';
 
+// components
+import { AerodromeInfo } from 'src/components/modal-dialog';
 // @types
 import { IAerodrome } from 'src/@types/aerodrome';
 //
@@ -22,23 +24,42 @@ const AerodromeMapItem: React.FC<IAerodromeMapItemProps> = (props) => {
     aerodrome,
   } = props;
 
+  const [open, setOpen] = React.useState<boolean>(false);
+
+  const handleClick = React.useMemo(
+    () => ({
+      click() {
+        setOpen(true);
+      },
+    }),
+    [],
+  );
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
   return (
-    <Circle
-      center={{ lat: Dms2DD.getLatDd(aerodrome.dms) as number, lng: Dms2DD.getLngDd(aerodrome.dms) as number }}
-      // eventHandlers={eventHandlers}
-      pathOptions={{ fillColor: color }}
-      radius={radius}>
-      <Tooltip>
-        Nome: {aerodrome.name}
-        <br />
-        Cidade: {aerodrome.city}
+    <>
+      <AerodromeInfo aerodrome={aerodrome} isOpen={open} onClose={handleClose} />
 
-        <br />
-        Criado em: {aerodrome.createdAt}
+      <Circle
+        center={{ lat: Dms2DD.getLatDd(aerodrome.dms) as number, lng: Dms2DD.getLngDd(aerodrome.dms) as number }}
+        eventHandlers={handleClick}
+        pathOptions={{ fillColor: color }}
+        radius={radius}>
+        <Tooltip>
+          Nome: {aerodrome.name}
+          <br />
+          Cidade: {aerodrome.city}
 
-        <br />
-      </Tooltip>
-    </Circle>
+          <br />
+          Criado em: {aerodrome.createdAt}
+
+          <br />
+        </Tooltip>
+      </Circle>
+    </>
   );
 };
 

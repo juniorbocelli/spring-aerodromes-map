@@ -11,7 +11,7 @@ Outros documentos:
 
 ## Backend
 
-Foi construído usando os princípios de _Clean Code_, _Clean Architecture_ e _SOLID_ na forma de API _REST_. Essa camada foi criada na pasta **server** do projeto. Para fazer a validação dos repositórios e operações SQL, usamos **JPA** e **Hibernates**. A segurança do sistema foi feita usando _JWT_.
+Foi construído usando os princípios de _Clean Code_, _Clean Architecture_ e _SOLID_ na forma de API _REST_. Essa camada foi criada na pasta **backend** do projeto. Para fazer a validação dos repositórios e operações SQL, usamos **JPA** e **Hibernates**. A segurança do sistema foi feita usando _JWT_.
 
 As funções extras desenvolvidas (que não estão no documento de requisitos) são:
 

@@ -43,20 +43,37 @@ export default function useDashboardAPIs(states: IUseDashboardStates): IUseDashb
       });
   };
 
-  const newFromUpload = (file: FormData) => {
+  const newFromUpload = async (file: FormData) => {
     setIsQueryingAPI(true);
 
-    newFromUploadAPI(file)
-      .then(response => {
-        if (process.env.NODE_ENV === 'development')
-          console.log('Response -> newFromUploadAPI', response);
-      })
-      .catch((error: AxiosError<IAxiosExceptionData>) => {
-        setErrorMessageFromAxiosError(error);
-      })
-      .finally(() => {
-        setIsQueryingAPI(false);
-      });
+    try {
+      const response = await newFromUploadAPI(file);
+      if (process.env.NODE_ENV === 'development')
+        console.log('Response -> newFromUploadAPI', response);
+
+      return response.data;
+    } catch (e) {
+      setErrorMessageFromAxiosError(e);
+
+      return null;
+    } finally {
+      setIsQueryingAPI(false);
+    };
+
+
+    // 
+
+    // newFromUploadAPI(file)
+    //   .then(response => {
+    //     if (process.env.NODE_ENV === 'development')
+    //       console.log('Response -> newFromUploadAPI', response);
+    //   })
+    //   .catch((error: AxiosError<IAxiosExceptionData>) => {
+    //     setErrorMessageFromAxiosError(error);
+    //   })
+    //   .finally(() => {
+    //     setIsQueryingAPI(false);
+    //   });
   };
 
   return {

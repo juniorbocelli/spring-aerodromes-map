@@ -8,8 +8,10 @@ import { yupResolver } from '@hookform/resolvers/yup';
 // components
 import AlertDialog from 'src/components/modal-dialog/AlertDialog';
 import FormProvider, { RHFUploadBox } from 'src/components/hook-form';
+import { AerodromesTable } from 'src/components/aerodomes';
 //
 import Strings from 'src/shared/strings';
+import { IAerodrome } from 'src/@types/aerodrome';
 
 // ----------------------------------------------------------------------
 
@@ -20,10 +22,14 @@ type FormValuesProps = {
 interface IUploadAerodromesProps {
   isOpen: boolean;
   onClose: () => void;
-  onSubmitForm: (file: FormData) => void;
+  onSubmitForm: (file: FormData) => Promise<IAerodrome[] | null>;
 };
 
 const UploadAerodromes: React.FC<IUploadAerodromesProps> = ({ isOpen, onClose, onSubmitForm }) => {
+  // States
+  const [aerodromes, setAerodromes] = React.useState<IAerodrome[] | null>(null);
+
+  // Form
   const FormSchema = Yup.object().shape({
     file: Yup.mixed().required(Strings.ErrorMessages.forms.requiredMultiSelectObject('um', 'arquivo .json')).nullable(true),
   });
@@ -59,15 +65,19 @@ const UploadAerodromes: React.FC<IUploadAerodromesProps> = ({ isOpen, onClose, o
   );
 
   const onSubmit = async (data: FormValuesProps) => {
-    // control business rules
-    console.log('data', data);
-
     const formData = new FormData();
     formData.append('file', data.file as File);
-    onSubmitForm(formData);
+
+    const aerodromesOrNull = await onSubmitForm(formData);
+    setAerodromes(aerodromesOrNull);
 
     // reset form
     reset();
+  };
+
+  const handdleClose = () => {
+    onClose();
+    setAerodromes(null);
   };
 
   // Effects
@@ -78,25 +88,35 @@ const UploadAerodromes: React.FC<IUploadAerodromesProps> = ({ isOpen, onClose, o
   return (
     <AlertDialog
       open={isOpen}
+      size={aerodromes === null ? "md" : "xl"}
       content={
-        <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
-          <Box sx={{ display: 'flex', flexDirection: 'column', }}>
-            <RHFUploadBox
-              name="file"
-              accept={{ 'application/json': ['.json'] }}
-              showFilesList
-              sx={{ width: '100%', height: 160, mb: 2 }}
-              placeholder="Clique ou arraste seu arquivo aqui!"
-              onDrop={handleDropSingleFile}
-            />
+        <>
+          {
+            aerodromes === null ? (
+              <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
+                <Box sx={{ display: 'flex', flexDirection: 'column', }}>
+                  <RHFUploadBox
+                    name="file"
+                    accept={{ 'application/json': ['.json'] }}
+                    showFilesList
+                    sx={{ width: '100%', height: 300, mb: 2 }}
+                    placeholder="Clique ou arraste seu arquivo aqui!"
+                    onDrop={handleDropSingleFile}
+                  />
 
-            <Button variant="contained" sx={{ flexGrow: 1 }} type="submit">
-              Enviar
-            </Button>
-          </Box>
-        </FormProvider>
+                  <Button variant="contained" sx={{ flexGrow: 1 }} type="submit">
+                    Enviar
+                  </Button>
+                </Box>
+              </FormProvider>
+            )
+              :
+              <AerodromesTable aerodromes={aerodromes} />
+          }
+
+        </>
       }
-      onClose={onClose}
+      onClose={handdleClose}
     />
   );
 };

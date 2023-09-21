@@ -19,6 +19,7 @@ import com.juniorbocelli.xmobotscase.aerodrome.domain.entities.Aerodrome;
 import com.juniorbocelli.xmobotscase.aerodrome.domain.usecases.CreateAerodrome;
 import com.juniorbocelli.xmobotscase.aerodrome.domain.usecases.CreateAerodromeFromUpload;
 import com.juniorbocelli.xmobotscase.aerodrome.domain.usecases.GetAerodromes;
+import com.juniorbocelli.xmobotscase.user.data.models.UserResponseModel;
 
 import netscape.javascript.JSException;
 
@@ -39,26 +40,29 @@ public class AerodromeController {
     public ResponseEntity<AerodromeResponseModel> create(@RequestBody AerodromeRequestModel aerodromeRequestModel) {
         this.createAerodrome.call(AerodromeRequestModel.toAerodrome(aerodromeRequestModel));
 
-        return new ResponseEntity<AerodromeResponseModel>(
-                new AerodromeResponseModel(HttpStatus.OK.value(), HttpStatus.OK.name()), HttpStatus.OK);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @GetMapping(path = "api/aerodrome")
-    public ResponseEntity<List<Aerodrome>> getAerodromes() {
+    public ResponseEntity<List<AerodromeResponseModel>> getAerodromes() {
 
         List<Aerodrome> aerodromes = this.getAerodromes.call();
 
-        return new ResponseEntity<List<Aerodrome>>(aerodromes, HttpStatus.OK);
+        return new ResponseEntity<List<AerodromeResponseModel>>(
+                AerodromeResponseModel.toAerodromeResponseModelList(aerodromes),
+                HttpStatus.OK);
     }
 
     @PostMapping(path = "api/aerodrome/upload", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public ResponseEntity<List<Aerodrome>> uploadJsonFile(
+    public ResponseEntity<List<AerodromeResponseModel>> uploadJsonFile(
             @ModelAttribute AerodromeJsonRequestModel aerodromeJsonRequestModel) throws IOException, JSException {
         try {
             List<Aerodrome> aerodromes = AerodromeJsonRequestModel.toAerodromeList(aerodromeJsonRequestModel);
             this.createAerodromeFromUpload.call(aerodromes);
 
-            return new ResponseEntity<List<Aerodrome>>(aerodromes, HttpStatus.OK);
+            return new ResponseEntity<List<AerodromeResponseModel>>(
+                    AerodromeResponseModel.toAerodromeResponseModelList(aerodromes),
+                    HttpStatus.OK);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }

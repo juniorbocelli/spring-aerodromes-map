@@ -24,8 +24,7 @@ public class RunwayController {
         try {
             this.createRunway.call(RunwayRequestModel.toRunway(runwayRequestModel));
 
-            return new ResponseEntity<RunwayResponseModel>(
-                    new RunwayResponseModel(HttpStatus.OK.value(), HttpStatus.OK.name()), HttpStatus.OK);
+            return new ResponseEntity<>(HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }

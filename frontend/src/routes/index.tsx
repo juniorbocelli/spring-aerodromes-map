@@ -59,7 +59,7 @@ export default function Router() {
         <CheckSession>
           <DashboardLayout
             activeMenu='dashboard'
-            title='Pistas de Pouso de Drones'
+            title='Mapa de Aerodromes'
 
             pageTitle='Home'
           />

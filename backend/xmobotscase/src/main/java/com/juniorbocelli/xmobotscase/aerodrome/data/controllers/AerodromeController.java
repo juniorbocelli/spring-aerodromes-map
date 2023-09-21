@@ -52,13 +52,13 @@ public class AerodromeController {
     }
 
     @PostMapping(path = "api/aerodrome/upload", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public ResponseEntity<AerodromeResponseModel> uploadJsonFile(
+    public ResponseEntity<List<Aerodrome>> uploadJsonFile(
             @ModelAttribute AerodromeJsonRequestModel aerodromeJsonRequestModel) throws IOException, JSException {
         try {
-            this.createAerodromeFromUpload.call(AerodromeJsonRequestModel.toAerodromeList(aerodromeJsonRequestModel));
+            List<Aerodrome> aerodromes = AerodromeJsonRequestModel.toAerodromeList(aerodromeJsonRequestModel);
+            this.createAerodromeFromUpload.call(aerodromes);
 
-            return new ResponseEntity<AerodromeResponseModel>(
-                    new AerodromeResponseModel(HttpStatus.OK.value(), HttpStatus.OK.name()), HttpStatus.OK);
+            return new ResponseEntity<List<Aerodrome>>(aerodromes, HttpStatus.OK);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }

@@ -1,5 +1,6 @@
 import { AxiosError } from 'axios';
 
+// @types
 import { IAxiosExceptionData } from 'src/@types/exception';
 
 // ----------------------------------------------------------------------

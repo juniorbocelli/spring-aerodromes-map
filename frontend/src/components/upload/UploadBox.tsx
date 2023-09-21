@@ -2,12 +2,13 @@ import React from 'react';
 import { useDropzone } from 'react-dropzone';
 // @mui
 import { styled, alpha } from '@mui/material/styles';
+
+// components
+import { Iconify } from 'src/components/iconify';
+// @types
+import { UploadProps } from 'src/components/upload/types';
 //
 import uuidv4 from 'src/utils/uuidv4';
-import { Iconify } from '../iconify';
-//
-import { UploadProps } from './types';
-
 
 // ----------------------------------------------------------------------
 
@@ -43,7 +44,7 @@ export default function UploadBox({
   onUpload,
   sx,
   ...other }: UploadProps) {
-  const { getRootProps, getInputProps, isDragActive, isDragReject, acceptedFiles, fileRejections } = useDropzone({
+  const { getRootProps, getInputProps, isDragActive, isDragReject, } = useDropzone({
     multiple,
     disabled,
     ...other,

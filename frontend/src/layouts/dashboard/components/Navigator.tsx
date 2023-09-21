@@ -1,14 +1,19 @@
-import HomeIcon from '@mui/icons-material/Home';
-import Box from '@mui/material/Box';
-import Divider from '@mui/material/Divider';
-import Drawer, { DrawerProps } from '@mui/material/Drawer';
-import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
-import ListItemButton from '@mui/material/ListItemButton';
-import ListItemIcon from '@mui/material/ListItemIcon';
-import ListItemText from '@mui/material/ListItemText';
 import * as React from 'react';
 import { useNavigate } from 'react-router-dom';
+// @mui
+import {
+  Box,
+  Divider,
+  Drawer,
+  DrawerProps,
+  List,
+  ListItem,
+  ListItemButton,
+  ListItemIcon,
+  ListItemText,
+} from '@mui/material';
+// icons
+import HomeIcon from '@mui/icons-material/Home';
 
 //
 import * as Paths from 'src/routes/paths';

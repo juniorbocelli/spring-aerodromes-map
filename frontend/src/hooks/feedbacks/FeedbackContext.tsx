@@ -1,4 +1,3 @@
-import { AxiosError } from 'axios';
 import React from 'react';
 
 // @types
@@ -6,11 +5,10 @@ import {
   IFeedbackContext,
   IUseFeedbackStates,
 } from 'src/hooks/feedbacks/types';
-import { IAxiosExceptionData } from 'src/@types/exception';
 
 // ----------------------------------------------------------------------
 
-const FFeedbackContext = React.createContext({} as IFeedbackContext);
+const FeedbackContext = React.createContext({} as IFeedbackContext);
 
 interface ISetFeedbackProviderProps extends React.PropsWithChildren {
   states: IUseFeedbackStates;
@@ -62,13 +60,13 @@ export const FeedbackContextProvider: React.FC<ISetFeedbackProviderProps> = ({ c
   const contexts = React.useMemo(() => ({ states: _states }), [_states]);
 
   return (
-    <FFeedbackContext.Provider value={contexts} >
+    <FeedbackContext.Provider value={contexts} >
       {children}
-    </FFeedbackContext.Provider>
+    </FeedbackContext.Provider>
   );
 };
 
 export function useFeedbackContext() {
-  const context = React.useContext(FFeedbackContext);
+  const context = React.useContext(FeedbackContext);
   return context;
 };

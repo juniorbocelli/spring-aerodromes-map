@@ -1,8 +1,12 @@
 import React from 'react';
+
+//
 import {
   IUseMapCenterPositionEffects,
   IUseMapCenterPositionStates,
 } from './types';
+
+// ----------------------------------------------------------------------
 
 export default function useMapCenterPositionEffects(states: IUseMapCenterPositionStates): IUseMapCenterPositionEffects {
   const {

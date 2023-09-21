@@ -1,11 +1,12 @@
 import * as React from 'react';
+import { Outlet } from 'react-router-dom';
+// @mui
 import {
   Box,
-  useTheme,
-  useMediaQuery,
   CssBaseline,
+  useMediaQuery,
+  useTheme,
 } from '@mui/material';
-import { Outlet } from 'react-router-dom';
 
 // components
 import { BackDrop } from 'src/components/back-drop';
@@ -15,9 +16,9 @@ import { useFeedbackContext } from 'src/hooks/feedbacks';
 //
 import Strings from 'src/shared/strings';
 // internal components
-import Navigator from './components/Navigator';
-import Header from './components/Header';
 import Footer from './components/Footer';
+import Header from './components/Header';
+import Navigator from './components/Navigator';
 
 // ----------------------------------------------------------------------
 

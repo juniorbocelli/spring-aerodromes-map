@@ -1,8 +1,11 @@
-import { AxiosError } from "axios";
 import React from "react";
-import { IAxiosExceptionData } from "src/@types/exception";
+import { AxiosError } from "axios";
 
+// @types
+import { IAxiosExceptionData } from "src/@types/exception";
 import { ILoggedUser } from 'src/@types/user';
+
+// ----------------------------------------------------------------------
 
 export type LoggedUserState = ILoggedUser | null | undefined;
 export type IsCheckingSessionState = boolean;

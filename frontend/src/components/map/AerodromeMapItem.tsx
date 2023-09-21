@@ -1,9 +1,9 @@
 import React from 'react';
 // map
 import { Circle, Tooltip } from 'react-leaflet';
+
 // @types
 import { IAerodrome } from 'src/@types/aerodrome';
-import { Typography } from '@mui/material';
 //
 import { Dms2DD } from 'src/utils/dms2dd';
 

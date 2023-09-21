@@ -1,8 +1,11 @@
 import React from 'react';
+
 //
 import useAuthAPIs from 'src/auth/apis';
 import useAuthStates from 'src/auth/states';
 import { IAuthContext } from 'src/auth/types';
+
+// ----------------------------------------------------------------------
 
 const AuthContext = React.createContext({} as IAuthContext);
 
@@ -13,6 +16,8 @@ interface Props {
 export const globalAuth = {
   logout: () => { },
 };
+
+// ----------------------------------------------------------------------
 
 export const AuthContextProvider: React.FC<Props> = ({ children }) => {
   const states = useAuthStates();

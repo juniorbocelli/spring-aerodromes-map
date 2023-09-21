@@ -1,4 +1,5 @@
 import { Navigate, useRoutes } from 'react-router-dom';
+
 // auth
 import CheckSession from 'src/auth/CheckSession';
 // layouts

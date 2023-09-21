@@ -13,6 +13,7 @@ import {
 import Logout from '@mui/icons-material/Logout';
 import PersonIcon from '@mui/icons-material/Person';
 
+// contexts
 import { useAuthContext } from 'src/auth/context';
 
 // ----------------------------------------------------------------------

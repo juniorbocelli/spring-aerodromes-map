@@ -7,10 +7,9 @@ import {
 import { Theme } from '@mui/material/styles';
 // components
 import { Container } from 'src/components/container';
-import { UploadAerodromes } from 'src/components/modal-dialog';
 import { Map } from 'src/components/map';
+import { UploadAerodromes } from 'src/components/modal-dialog';
 // contexts
-import { useFeedbackContext } from 'src/hooks/feedbacks';
 import { useDashboardContext } from 'src/sections/dashboard/Dashboard/context';
 //
 
@@ -28,8 +27,6 @@ const Dashboard: React.FC<IDashboardProps> = ({ sx }) => {
     aerodromes,
     mapCenter,
   } = context.states;
-
-  const { states: feebackStates } = useFeedbackContext();
 
   // Local states
   const [open, setOpen] = React.useState<boolean>(false);

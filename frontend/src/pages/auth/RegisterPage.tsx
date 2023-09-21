@@ -1,5 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+
 // sections
 import Register from 'src/sections/user/register/Register';
 // contexts

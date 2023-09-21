@@ -1,10 +1,13 @@
 import React from 'react';
+// @mui
 import {
   Typography,
 
   useTheme,
   SxProps,
 } from '@mui/material';
+
+// ----------------------------------------------------------------------
 
 interface ITitleProps {
   children?: React.ReactNode;

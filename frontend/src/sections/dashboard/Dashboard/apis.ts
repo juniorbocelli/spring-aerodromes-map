@@ -1,5 +1,4 @@
 import { AxiosError } from 'axios';
-
 // interfaces
 import { IAxiosExceptionData } from 'src/@types/exception';
 import {
@@ -14,6 +13,8 @@ import {
 } from 'src/services/aerodrome';
 // contexts
 import { useFeedbackContext } from 'src/hooks/feedbacks';
+
+// ----------------------------------------------------------------------
 
 export default function useDashboardAPIs(states: IUseDashboardStates): IUseDashboardAPIs {
   const { states: feedbackStates } = useFeedbackContext();
@@ -59,21 +60,6 @@ export default function useDashboardAPIs(states: IUseDashboardStates): IUseDashb
     } finally {
       setIsQueryingAPI(false);
     };
-
-
-    // 
-
-    // newFromUploadAPI(file)
-    //   .then(response => {
-    //     if (process.env.NODE_ENV === 'development')
-    //       console.log('Response -> newFromUploadAPI', response);
-    //   })
-    //   .catch((error: AxiosError<IAxiosExceptionData>) => {
-    //     setErrorMessageFromAxiosError(error);
-    //   })
-    //   .finally(() => {
-    //     setIsQueryingAPI(false);
-    //   });
   };
 
   return {

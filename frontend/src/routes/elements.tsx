@@ -1,4 +1,5 @@
 import { Suspense, lazy, ElementType } from 'react';
+// @mui
 import CircularProgress from '@mui/material/CircularProgress';
 
 // ----------------------------------------------------------------------
@@ -26,4 +27,4 @@ export const RegisterPage = Loadable(lazy(() => import('../pages/auth/RegisterPa
 /**
  * City
  */
-export const Dashboard = Loadable(lazy(() => import('../pages/city/Dashboard')));
+export const Dashboard = Loadable(lazy(() => import('../pages/dashboard/Dashboard')));

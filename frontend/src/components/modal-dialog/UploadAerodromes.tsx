@@ -100,7 +100,7 @@ const UploadAerodromes: React.FC<IUploadAerodromesProps> = ({ isOpen, onClose, o
                     accept={{ 'application/json': ['.json'] }}
                     showFilesList
                     sx={{ width: '100%', height: 300, mb: 2 }}
-                    placeholder="Clique ou arraste seu arquivo aqui!"
+                    placeholder="Clique ou arraste seu arquivo .json aqui!"
                     onDrop={handleDropSingleFile}
                   />
 

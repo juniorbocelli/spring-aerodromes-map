@@ -30,6 +30,7 @@ import { useRegisterAPIs } from 'src/sections/user/register/apis';
 //
 import Strings from 'src/shared/strings';
 import { PATH_AUTH } from 'src/routes/paths';
+import { isNotEmpty, isEmail } from 'src/utils/validateStrings';
 
 // ----------------------------------------------------------------------
 
@@ -56,6 +57,7 @@ export default function AuthRegisterForm() {
     setDialogMessage(null);
   }, [setDialogMessage]);
 
+  // Form
   const [showPassword, setShowPassword] = React.useState(false);
 
   const LoginSchema = Yup.object().shape({
@@ -82,6 +84,7 @@ export default function AuthRegisterForm() {
   const {
     reset,
     handleSubmit,
+    watch,
   } = methods;
 
   const onSubmit = async (data: FormValuesProps) => {
@@ -103,6 +106,14 @@ export default function AuthRegisterForm() {
       reset();
     }
   };
+
+  // Validade before send
+  const isFormValid = (): boolean => (
+    isNotEmpty(watch('name')) &&
+    isNotEmpty(watch('password')) &&
+    watch('password') === watch('confirmPassword') &&
+    isEmail(watch('email'))
+  );
 
   return (
     <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
@@ -170,6 +181,8 @@ export default function AuthRegisterForm() {
           variant="contained"
           loading={isQueryingAPI}
           sx={{ mx: 'auto' }}
+
+          disabled={!isFormValid()}
         >
           Cadastrar
         </LoadingButton>

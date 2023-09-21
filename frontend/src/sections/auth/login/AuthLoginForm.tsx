@@ -25,6 +25,7 @@ import FormProvider, { RHFTextField } from 'src/components/hook-form';
 //
 import Strings from 'src/shared/strings';
 import { PATH_AUTH } from 'src/routes/paths';
+import { isNotEmpty, isEmail } from 'src/utils/validateStrings';
 
 // ----------------------------------------------------------------------
 
@@ -65,6 +66,7 @@ export default function AuthLoginForm() {
   const {
     reset,
     handleSubmit,
+    watch,
   } = methods;
 
   const onSubmit = async (data: FormValuesProps) => {
@@ -80,6 +82,12 @@ export default function AuthLoginForm() {
       reset();
     };
   };
+
+  // Validade before send
+  const isFormValid = (): boolean => (
+    isNotEmpty(watch('password')) &&
+    isEmail(watch('email'))
+  );
 
   return (
     <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
@@ -128,6 +136,8 @@ export default function AuthLoginForm() {
           variant="contained"
           loading={isQueryingAPI}
           sx={{ mx: 'auto' }}
+
+          disabled={!isFormValid()}
         >
           Entrar
         </LoadingButton>

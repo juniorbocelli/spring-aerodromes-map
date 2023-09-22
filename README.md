@@ -8,7 +8,7 @@ Outros documentos:
 
 - Arquivo _.json_ para [download](https://drive.google.com/file/d/1UCNVPNEEkXWyGA_pQ-KDYtX04NT9yE59/view?usp=sharing);
 - Documentos de modelagem do Bando de Dados para [download](https://docs.google.com/document/d/1L2GnNVsrPFozc6OrCDVdmDe39kM7PfwTZWNi4c7475g/edit?usp=sharing);
-- Configuração do projeto para VSCode para [download](https://drive.google.com/drive/folders/1derS_dKNcHaTqkB8_usD6cNRrE8vwhAN?usp=sharing) (poderá ser útil, caso haja problemas com a configuração do Eslint).
+- Configuração do projeto usando VS Code para [download](https://drive.google.com/drive/folders/1derS_dKNcHaTqkB8_usD6cNRrE8vwhAN?usp=sharing) (poderá ser útil, caso haja problemas com a configuração do Eslint).
 
 ## Backend
 
